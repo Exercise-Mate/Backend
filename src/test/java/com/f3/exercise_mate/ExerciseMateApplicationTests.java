@@ -1,0 +1,13 @@
+package com.f3.exercise_mate;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class ExerciseMateApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
