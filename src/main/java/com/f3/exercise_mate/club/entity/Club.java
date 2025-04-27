@@ -58,7 +58,7 @@ public class Club {
     @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ClubJoinQuestion> joinQuestions;
 
-    // 필수 입력 값 유효성 검사
+    // 필수 입력 값 유효성 검사 
     public void checkCreateRequiredValue() {
         if (ObjectUtils.isEmpty(this.name)) {
             throw new ClubException(ClubErrorCode.CLUB_CREATE_NAME_NOT_FOUND);
