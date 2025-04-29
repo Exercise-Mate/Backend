@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequiredArgsConstructor
 public class ChatRoomRepository {
 
-    public Long chatRoomId = 1L;
+    private Long chatRoomId = 1L;
     private final Map<Long, ChatRoom> ChatRoomMap = new ConcurrentHashMap<>();
 
     public Long save(Long memberId, String name){
