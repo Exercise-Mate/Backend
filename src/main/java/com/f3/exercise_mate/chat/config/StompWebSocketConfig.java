@@ -27,7 +27,11 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
     // 클라이언트가 메시지를 구독할 endpoint를 정의
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.setApplicationDestinationPrefixes("/pub");
-        registry.enableSimpleBroker("/sub");
+        // 클라이언트가 보낸 메시지를 처리할 핸들러의 prefix
+        registry.setApplicationDestinationPrefixes("/app");
+
+        // 클라이언트가 구독할 수 있는 prefix
+        // broadcast는 /topic, 1:1은 /queue
+        registry.enableSimpleBroker("/topic", "/queue");
     }
 }

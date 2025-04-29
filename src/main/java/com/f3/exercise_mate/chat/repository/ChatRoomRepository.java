@@ -1,37 +1,45 @@
 package com.f3.exercise_mate.chat.repository;
 
 import com.f3.exercise_mate.chat.entity.ChatRoom;
-import jakarta.annotation.PostConstruct;
+import com.f3.exercise_mate.chat.exception.ChatRoomErrorCode;
+import com.f3.exercise_mate.chat.exception.ChatRoomException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
+@RequiredArgsConstructor
 public class ChatRoomRepository {
 
-    private Map<String, ChatRoom> ChatRoomMap;
+    public Long chatRoomId = 1L;
+    private final Map<Long, ChatRoom> ChatRoomMap = new ConcurrentHashMap<>();
 
-    @PostConstruct
-    private void init(){
-        ChatRoomMap = new LinkedHashMap<>();
-    }
+    public Long save(Long memberId, String name){
+        ChatRoom room = ChatRoom.create(chatRoomId++, memberId, name);
 
-    public List<ChatRoom> findAllRooms(){
-        // 채팅방 생성 순서 최근 순으로 반환
-        List<ChatRoom> result = new ArrayList<>(ChatRoomMap.values());
-        Collections.reverse(result);
+        if(room.getId() != chatRoomId - 1){
+            throw new ChatRoomException(ChatRoomErrorCode.CHATROOM_CREATE_ID_NOT_MATCH);
+        }
 
-        return result;
-    }
-
-    public ChatRoom findRoomById(String id){
-        return ChatRoomMap.get(id);
-    }
-
-    public ChatRoom createChatRoom(String name){
-        ChatRoom room = ChatRoom.create(name);
         ChatRoomMap.put(room.getId(), room);
-
-        return room;
+        return room.getId();
     }
+
+    public List<ChatRoom> findAll(){
+        // 채팅방 생성 순서 최근 순으로 반환
+        List<ChatRoom> allRooms = new ArrayList<>(ChatRoomMap.values());
+        Collections.reverse(allRooms);
+
+        return allRooms;
+    }
+
+    public ChatRoom findById(Long id){
+        ChatRoom foundRoom = ChatRoomMap.get(id);
+        return foundRoom;
+    }
+
+
+
 }
