@@ -1,7 +1,8 @@
 package com.f3.exercise_mate.appointment.domain;
 
 import com.f3.exercise_mate.appointment.application.dto.UpdateAppointmentRequestDto;
-import com.f3.exercise_mate.user.entity.User;
+import com.f3.exercise_mate.appointment.application.dto.question.CreateQuestionRequestDto;
+import com.f3.exercise_mate.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -20,11 +21,10 @@ public class Appointment {
     private Participants participants;
     private Sport sports;
     private LevelRange level;
-    private Questions questions;
     private AgeRange range;
     private boolean isClub;
 
-    public static Appointment create(Long id, String title, User creator, String description, Sport sport, Location location, DateInfo dateInfo) {
+    public static Appointment create(Long id, String title, User creator, String description, Sport sport, Location location, DateInfo dateInfo, int maxParticipant) {
         Appointment appointment = Appointment.builder()
                 .id(id)
                 .title(title)
@@ -33,12 +33,31 @@ public class Appointment {
                 .sports(sport)
                 .location(location)
                 .dateInfo(dateInfo)
-                .participants(Participants.defaultCreate(List.of(creator)))
-                .questions(new Questions())
+                .participants(Participants.defaultCreate(null, maxParticipant))
                 .range(AgeRange.unrestricted())
                 .isClub(false)
                 .build();
 
+        appointment.join(creator);
+        appointment.validate();
+        return appointment;
+    }
+
+    public static Appointment create(Long id, String title, User creator, String description, Sport sport, Location location, DateInfo dateInfo, int maxParticipant, AgeRange range) {
+        Appointment appointment = Appointment.builder()
+                .id(id)
+                .title(title)
+                .creator(creator)
+                .description(description)
+                .sports(sport)
+                .location(location)
+                .dateInfo(dateInfo)
+                .participants(Participants.defaultCreate(null, maxParticipant))
+                .range(range)
+                .isClub(false)
+                .build();
+
+        appointment.join(creator);
         appointment.validate();
         return appointment;
     }
@@ -47,12 +66,16 @@ public class Appointment {
         return participants.size();
     }
 
+    public boolean isAvailableAge(int age) {
+        return range.isAvaliableAge(age);
+    }
+
     public void join(User user) {
-        participants.add(user);
+        participants.add(new Participant(user, this));
     }
 
     public void exit(User user) {
-        participants.remove(user);
+        participants.remove(new Participant(user, this));
     }
 
     private void validate() {
