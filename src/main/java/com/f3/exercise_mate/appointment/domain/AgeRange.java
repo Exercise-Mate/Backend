@@ -8,10 +8,14 @@ public class AgeRange {
     private Integer minAge;
     private Integer maxAge;
 
+    private final int MIN_AGE = 0;
+    private final int MAX_AGE = 100;
+
+
     public AgeRange(Integer minAge, Integer maxAge) {
         checkAge(minAge, maxAge);
-        this.minAge = minAge;
-        this.maxAge = maxAge;
+        this.minAge = minAge == null ? MIN_AGE : minAge;
+        this.maxAge = maxAge == null ? MAX_AGE : maxAge;
     }
 
     /*
@@ -31,7 +35,7 @@ public class AgeRange {
                 throw new IllegalArgumentException("최소 나이는 최대 나이보다 작아야 합니다");
             }
 
-            if (max > 99) {
+            if (max > MAX_AGE) {
                 throw new IllegalArgumentException("최대 나이는 99세 입니다.");
             }
         }
