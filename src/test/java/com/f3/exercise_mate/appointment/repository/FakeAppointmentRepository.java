@@ -17,7 +17,7 @@ public class FakeAppointmentRepository implements AppointmentRepository {
             return appointment;
         }
         long id = store.size() + 1;
-        Appointment newAppointment = Appointment.create(id, appointment.getTitle(), appointment.getCreator(), appointment.getDescription(), appointment.getSports(), appointment.getLocation(), appointment.getDateInfo());
+        Appointment newAppointment = Appointment.create(id, appointment.getTitle(), appointment.getCreator(), appointment.getDescription(), appointment.getSports(), appointment.getLocation(), appointment.getDateInfo(), 10, appointment.getRange());
         store.put(id, newAppointment);
         return store.get(id);
     }

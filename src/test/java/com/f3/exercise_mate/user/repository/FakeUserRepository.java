@@ -1,7 +1,7 @@
 package com.f3.exercise_mate.user.repository;
 
 import com.f3.exercise_mate.user.application.interfaces.UserRepository;
-import com.f3.exercise_mate.user.entity.User;
+import com.f3.exercise_mate.user.domain.User;
 
 import java.util.HashMap;
 import java.util.Map;

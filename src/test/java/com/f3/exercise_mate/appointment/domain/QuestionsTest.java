@@ -1,16 +1,30 @@
 package com.f3.exercise_mate.appointment.domain;
 
+import com.f3.exercise_mate.user.domain.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class QuestionsTest {
+
+    private final User creator = new User(1L, 20, "john");
+    private final Location location = new Location("서울시 강남구", "강남 풋살장", "");
+    private final DateInfo dateInfo = new DateInfo(LocalDate.now(), LocalTime.now(), LocalTime.now().plusHours(1));
+    private final Appointment appointment = Appointment.create(
+            1L,
+            "풋살 한판 뛰실분?",
+            creator,
+            "풋살 재밌게 찹시다.",
+            Sport.FUTSAL,
+            location,
+            dateInfo,
+            10);
 
     @Test
     @DisplayName("null이 들어오면 빈 ArrayList가 생성 된다.")
@@ -28,7 +42,7 @@ class QuestionsTest {
     void givenNullQuestion_createQuestions_throwError() {
         // given
         Question nullQuestion = null;
-        Question question = new Question(1L, 1L, "this is a question");
+        Question question = new Question(1L, appointment, "this is a content");
 
         List<Question> list = new ArrayList<>();
         list.add(nullQuestion);
@@ -43,8 +57,8 @@ class QuestionsTest {
     void questions_add_success() {
         // given
         Questions questions = new Questions();
-        String text = "this is a question";
-        Question question = new Question(1L, 1L, text);
+        String text = "this is a content";
+        Question question = new Question(1L, appointment, text);
 
         // when
         questions.add(question);
@@ -52,7 +66,7 @@ class QuestionsTest {
         // then
         assertEquals(1, questions.size());
         assertEquals(1L, questions.getQuestions().get(0).getId());
-        assertEquals(text, questions.getQuestions().get(0).getQuestion());
+        assertEquals(text, questions.getQuestions().get(0).getContent());
     }
 
     @Test
@@ -70,11 +84,11 @@ class QuestionsTest {
     void questions_remove_success() {
         // given
         Questions questions = new Questions();
-        String text = "this is a question";
+        String text = "this is a content";
 
-        Question question1 = new Question(1L, 1L, text + 1);
-        Question question2 = new Question(2L, 1L, text + 2);
-        Question question3 = new Question(3L, 1L, text + 3);
+        Question question1 = new Question(1L, appointment, text + 1);
+        Question question2 = new Question(2L, appointment, text + 2);
+        Question question3 = new Question(3L, appointment, text + 3);
         questions.add(question1);
         questions.add(question2);
         questions.add(question3);
