@@ -1,8 +1,11 @@
 package com.f3.exercise_mate.appointment.application.dto;
 
+import com.f3.exercise_mate.appointment.application.dto.question.CreateQuestionRequestDto;
 import com.f3.exercise_mate.appointment.domain.DateInfo;
 import com.f3.exercise_mate.appointment.domain.Location;
 import com.f3.exercise_mate.appointment.domain.Sport;
+
+import java.util.List;
 
 public record CreateAppointmentRequestDto(
         String title,
@@ -10,5 +13,7 @@ public record CreateAppointmentRequestDto(
         String description,
         Sport sport,
         Location location,
-        DateInfo dateInfo) {
+        DateInfo dateInfo,
+        int maxParticipant,
+        List<CreateQuestionRequestDto> questions) {
 }

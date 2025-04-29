@@ -40,8 +40,8 @@ public class Location {
         this.address = address;
         this.name = name;
         this.url = url;
-        this.x = null;
-        this.y = null;
+        this.x = 127.0;
+        this.y = 36.0;
     }
 
 
