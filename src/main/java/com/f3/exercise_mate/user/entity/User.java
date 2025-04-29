@@ -13,12 +13,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User {
 
+    // TODO : Entity 객체이므로 추후 class명 변경 예정
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
 
     public User(String username) {
+        this.username = username;
+    }
+
+    public User(Long id, String username) {
+        this.id = id;
         this.username = username;
     }
 
