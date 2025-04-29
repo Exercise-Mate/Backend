@@ -14,7 +14,7 @@ public class Questions {
     }
 
     public Questions(List<Question> questions) {
-        if (questions == null) {
+        if (questions == null || questions.isEmpty()) {
             this.questions = new ArrayList<>();
             return;
         }
