@@ -1,8 +1,18 @@
 package com.f3.exercise_mate.appointment.domain;
 
+import com.f3.exercise_mate.appointment.application.exception.AppointmentErrorCode;
+import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
+import jakarta.persistence.Embeddable;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Embeddable
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class LevelRange {
-    private final Level minLevel;
-    private final Level maxLevel;
+    private Level minLevel;
+    private Level maxLevel;
 
     public LevelRange(Level minLevel, Level maxLevel) {
         checkLevel(minLevel, maxLevel);
@@ -14,7 +24,7 @@ public class LevelRange {
     private void checkLevel(Level minLevel, Level maxLevel) {
         if (minLevel != null && maxLevel != null) {
             if (minLevel.ordinal() > maxLevel.ordinal()) {
-                throw new IllegalArgumentException("최소 레벨은 최대 레벨보다 낮거나 같아야 합니다.");
+                throw new AppointmentException(AppointmentErrorCode.LEVEL_RANGE_INVALID);
             }
         }
     }

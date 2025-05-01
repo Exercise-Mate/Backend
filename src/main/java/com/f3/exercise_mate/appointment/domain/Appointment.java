@@ -1,7 +1,8 @@
 package com.f3.exercise_mate.appointment.domain;
 
 import com.f3.exercise_mate.appointment.application.dto.UpdateAppointmentRequestDto;
-import com.f3.exercise_mate.appointment.application.dto.question.CreateQuestionRequestDto;
+import com.f3.exercise_mate.appointment.application.exception.AppointmentErrorCode;
+import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
 import com.f3.exercise_mate.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -80,26 +81,26 @@ public class Appointment {
 
     private void validate() {
         if (title == null || title.isEmpty()) {
-            throw new IllegalArgumentException("약속의 제목은 필수입니다,");
+            throw new AppointmentException(AppointmentErrorCode.APPOINTMENT_TITLE_REQUIRED);
         }
 
         if (title.length() < 5 || title.length() > 100) {
-            throw new IllegalArgumentException("약속의 제목은 5~100자로 입력해야합니다.");
+            throw new AppointmentException(AppointmentErrorCode.APPOINTMENT_TITLE_LENGTH_INVALID);
         }
 
         if (description == null || description.isEmpty()) {
-            throw new IllegalArgumentException("약속의 설명은 필수입니다.");
+            throw new AppointmentException(AppointmentErrorCode.APPOINTMENT_DESCRIPTION_REQUIRED);
         }
 
         if (description.length() < 5 || description.length() > 500) {
-            throw new IllegalArgumentException("약속의 설명은 5~500자로 입력해야합니다.");
+            throw new AppointmentException(AppointmentErrorCode.APPOINTMENT_DESCRIPTION_LENGTH_INVALID);
         }
 
     }
 
     public void updateAppointment(User user, UpdateAppointmentRequestDto dto) {
         if(!user.equals(creator)) {
-            throw new IllegalArgumentException("약속 생성자만 수정 할 수 있습니다");
+            throw new AppointmentException(AppointmentErrorCode.APPOINTMENT_MODIFY_CREATOR_ONLY);
         }
 
         this.title = dto.title();
