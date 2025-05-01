@@ -20,10 +20,10 @@ public class FakeChatRoomRepository implements ChatRoomRepository {
     private final Map<Long, ChatRoom> ChatRoomMap = new ConcurrentHashMap<>();
 
     @Override
-    public Long save(Long memberId, String name){
+    public Long save(Long memberId, String name) {
         ChatRoom room = ChatRoom.create(chatRoomId++, memberId, name);
 
-        if(room.getId() != chatRoomId - 1){
+        if (room.getId() != chatRoomId - 1) {
             throw new ChatRoomException(ChatRoomErrorCode.CHATROOM_CREATE_ID_NOT_MATCH);
         }
 
@@ -32,7 +32,7 @@ public class FakeChatRoomRepository implements ChatRoomRepository {
     }
 
     @Override
-    public List<ChatRoom> findAll(){
+    public List<ChatRoom> findAll() {
         // 채팅방 생성 순서 최근 순으로 반환
         List<ChatRoom> allRooms = new ArrayList<>(ChatRoomMap.values());
         Collections.reverse(allRooms);
@@ -41,7 +41,7 @@ public class FakeChatRoomRepository implements ChatRoomRepository {
     }
 
     @Override
-    public ChatRoom findById(Long id){
+    public ChatRoom findById(Long id) {
         ChatRoom foundRoom = ChatRoomMap.get(id);
         return foundRoom;
     }

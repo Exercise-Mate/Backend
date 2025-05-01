@@ -7,7 +7,9 @@ import java.util.*;
 public interface ChatRoomRepository {
 
     Long save(Long memberId, String name);
+
     List<ChatRoom> findAll();
+
     ChatRoom findById(Long id);
 
 }

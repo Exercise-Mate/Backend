@@ -20,7 +20,7 @@ public class ChatRoomController {
 
     // 채팅방 개설
     @PostMapping(value = "/chat-room")
-    public ResponseEntity<Long> create(@RequestBody CreateRoomReqDTO createRoomReqDTO){
+    public ResponseEntity<Long> create(@RequestBody CreateRoomReqDTO createRoomReqDTO) {
         log.info("# Create Chat Room , name: " + createRoomReqDTO.getChatRoomName());
 
         Long createdRoomId = chatRoomService.create(createRoomReqDTO);
@@ -29,7 +29,7 @@ public class ChatRoomController {
 
     // 채팅방 목록 조회
     @GetMapping(value = "/chat-rooms")
-    public ResponseEntity<List<ChatRoom>> rooms(){
+    public ResponseEntity<List<ChatRoom>> rooms() {
         log.info("# All Chat Rooms");
 
         List<ChatRoom> allRooms = chatRoomService.findAll();
@@ -38,7 +38,7 @@ public class ChatRoomController {
 
     // 특정 채팅방 조회
     @GetMapping("/chat-room")
-    public ResponseEntity<ChatRoom> roomById(@RequestBody Long chatRoomId){
+    public ResponseEntity<ChatRoom> roomById(@RequestBody Long chatRoomId) {
         log.info("# get Chat Room, roomID : " + chatRoomId);
 
         ChatRoom foundRoom = chatRoomService.findById(chatRoomId);
