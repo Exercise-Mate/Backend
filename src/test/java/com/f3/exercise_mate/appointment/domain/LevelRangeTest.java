@@ -1,5 +1,6 @@
 package com.f3.exercise_mate.appointment.domain;
 
+import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -42,7 +43,7 @@ class LevelRangeTest {
         Level max = Level.BEGINNER;
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> new LevelRange(min, max));
+        assertThrows(AppointmentException.class, () -> new LevelRange(min, max));
     }
 
 }

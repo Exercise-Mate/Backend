@@ -1,5 +1,7 @@
 package com.f3.exercise_mate.appointment.domain;
 
+import com.f3.exercise_mate.appointment.application.exception.AppointmentErrorCode;
+import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
 import lombok.Getter;
 
 @Getter
@@ -29,15 +31,15 @@ public class Question {
 
     private void checkQuestion(String content) {
         if(content == null || content.isEmpty()) {
-            throw new IllegalArgumentException("질문은 비어 있으면 안됩니다.");
+            throw new AppointmentException(AppointmentErrorCode.QUESTION_EMPTY);
         }
 
         if(content.length() < MIN_LENGTH) {
-            throw new IllegalArgumentException("질문의 최소 길이는 5입니다.");
+            throw new AppointmentException(AppointmentErrorCode.QUESTION_TOO_SHORT);
         }
 
         if(content.length() > MAX_LENGTH) {
-            throw new IllegalArgumentException("질문의 최대 길이는 200입니다.");
+            throw new AppointmentException(AppointmentErrorCode.QUESTION_TOO_LONG);
         }
     }
 

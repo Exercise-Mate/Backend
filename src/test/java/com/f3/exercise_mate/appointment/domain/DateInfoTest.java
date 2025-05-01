@@ -1,5 +1,6 @@
 package com.f3.exercise_mate.appointment.domain;
 
+import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -38,7 +39,7 @@ class DateInfoTest {
         LocalTime endTime = LocalTime.now().plusHours(1);
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> new DateInfo(date, startTime, endTime));
+        assertThrows(AppointmentException.class, () -> new DateInfo(date, startTime, endTime));
     }
 
     @Test
@@ -50,7 +51,7 @@ class DateInfoTest {
         LocalTime endTime = startTime.minusHours(1);
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> new DateInfo(date, startTime, endTime));
+        assertThrows(AppointmentException.class, () -> new DateInfo(date, startTime, endTime));
     }
 
     @Test
@@ -62,8 +63,8 @@ class DateInfoTest {
         LocalTime endTime = LocalTime.now().plusHours(1);
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> new DateInfo(null, startTime, endTime));
-        assertThrows(IllegalArgumentException.class, () -> new DateInfo(date, null, endTime));
-        assertThrows(IllegalArgumentException.class, () -> new DateInfo(date, startTime, null));
+        assertThrows(AppointmentException.class, () -> new DateInfo(null, startTime, endTime));
+        assertThrows(AppointmentException.class, () -> new DateInfo(date, null, endTime));
+        assertThrows(AppointmentException.class, () -> new DateInfo(date, startTime, null));
     }
 }
