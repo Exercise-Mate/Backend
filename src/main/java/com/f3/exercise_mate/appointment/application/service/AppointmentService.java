@@ -24,7 +24,6 @@ public class AppointmentService {
         this.userService = userService;
     }
 
-
     public Appointment createAppointment(CreateAppointmentRequestDto dto) {
         User user = userService.getUser(dto.creatorId());
         Appointment appointment = Appointment.create(null, dto.title(), user, dto.description(), dto.sport(), dto.location(), dto.dateInfo(), dto.maxParticipant());

@@ -1,29 +1,36 @@
 package com.f3.exercise_mate.user.entity;
 
+import com.f3.exercise_mate.user.domain.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@NoArgsConstructor
-public class User {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+public class UserEntity {
 
-    // TODO : Entity 객체이므로 추후 class명 변경 예정
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private int age;
     private String username;
 
-    public User(String username) {
-        this.username = username;
+    public static UserEntity from(User user) {
+        return new UserEntity(user.getId(), user.getAge(), user.getUsername());
     }
 
-    public User(Long id, String username) {
+    public User toUser() {
+        return new User(id, age, username);
+    }
+
+    public UserEntity(Long id, String username) {
         this.id = id;
         this.username = username;
     }

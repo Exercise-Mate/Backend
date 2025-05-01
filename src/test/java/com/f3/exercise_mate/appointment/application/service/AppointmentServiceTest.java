@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppointmentServiceTest {
 
-
     private AppointmentService appointmentService;
     private FakeAppointmentRepository fakeAppointmentRepository;
     private FakeQuestionRepository fakeQuestionRepository;
@@ -136,10 +135,8 @@ public class AppointmentServiceTest {
 
         JoinAppointmentRequestDto requestDto = new JoinAppointmentRequestDto(appointment.getId(), joinUser.getId(), answers);
 
-
         // when
         appointmentService.joinAppointment(requestDto);
-
     }
 
 

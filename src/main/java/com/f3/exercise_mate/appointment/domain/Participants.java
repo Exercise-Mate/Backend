@@ -1,7 +1,8 @@
 package com.f3.exercise_mate.appointment.domain;
 
 
-import com.f3.exercise_mate.user.domain.User;
+import com.f3.exercise_mate.appointment.application.exception.AppointmentErrorCode;
+import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +27,15 @@ public class Participants {
 
     public void add(Participant user) {
         if(users.size() >= MAX_PARTICIPANTS) {
-            throw new IllegalArgumentException("최대 참여 상태입니다.");
+            throw new AppointmentException(AppointmentErrorCode.PARTICIPANT_OVERFLOW);
         }
 
         if(user == null) {
-            throw new IllegalArgumentException("유저는 null일 수 없습니다.");
+            throw new AppointmentException(AppointmentErrorCode.PARTICIPANT_NULL);
         }
 
         if(users.contains(user)) {
-            throw new IllegalArgumentException("이미 참가하고 있는 user입니다");
+            throw new AppointmentException(AppointmentErrorCode.PARTICIPANT_DUPLICATE);
         }
 
         users.add(user);
@@ -42,11 +43,11 @@ public class Participants {
 
     public void remove(Participant user) {
         if(user == null) {
-            throw new IllegalArgumentException("유저는 null일 수 없습니다.");
+            throw new AppointmentException(AppointmentErrorCode.PARTICIPANT_NULL);
         }
 
         if(!users.contains(user)) {
-            throw new IllegalArgumentException("참여자 목록에 없는 user입니다.");
+            throw new AppointmentException(AppointmentErrorCode.PARTICIPANT_NOT_FOUND);
         }
 
         users.remove(user);
@@ -54,6 +55,10 @@ public class Participants {
 
     public int size() {
         return users.size();
+    }
+
+    public List<Participant> getParticipants() {
+        return users;
     }
 
 }

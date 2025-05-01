@@ -5,6 +5,7 @@ import com.f3.exercise_mate.appointment.application.dto.JoinAppointmentRequestDt
 import com.f3.exercise_mate.appointment.application.dto.UpdateAppointmentRequestDto;
 import com.f3.exercise_mate.appointment.application.dto.question.AnswerRequestDto;
 import com.f3.exercise_mate.appointment.application.dto.question.CreateQuestionRequestDto;
+import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
 import com.f3.exercise_mate.appointment.domain.*;
 import com.f3.exercise_mate.appointment.repository.FakeAppointmentRepository;
 import com.f3.exercise_mate.appointment.repository.FakeJoinRepository;
@@ -57,7 +58,7 @@ class JoinServiceTest {
         fakeJoinRepository = new FakeJoinRepository();
         userService = new UserService(fakeUserRepository);
         appointmentService = new AppointmentService(fakeAppointmentRepository, fakeQuestionRepository, userService);
-        joinService = new JoinService(userService, appointmentService, fakeQuestionRepository, fakeJoinRepository);
+        joinService = new JoinService(userService, appointmentService, fakeQuestionRepository, fakeJoinRepository, fakeAppointmentRepository);
 
         user = new User(1L, 30, "test");
         fakeUserRepository.save(user);
@@ -76,8 +77,8 @@ class JoinServiceTest {
 
     private List<CreateQuestionRequestDto> getQuestions(int size) {
         List<CreateQuestionRequestDto> list = new ArrayList<>();
-        for(int i=0; i<size; i++) {
-            list.add(new CreateQuestionRequestDto("this is a " + (i+1) +  "content"));
+        for (int i = 0; i < size; i++) {
+            list.add(new CreateQuestionRequestDto("this is a " + (i + 1) + "content"));
         }
 
         return list;
@@ -85,13 +86,12 @@ class JoinServiceTest {
 
     private List<AnswerRequestDto> getAnswers(int size) {
         List<AnswerRequestDto> list = new ArrayList<>();
-        for(int i=0; i<size; i++) {
-            list.add(new AnswerRequestDto((long) i, "this is " + (i+1) + "answer"));
+        for (int i = 0; i < size; i++) {
+            list.add(new AnswerRequestDto((long) i, "this is " + (i + 1) + "answer"));
         }
 
         return list;
     }
-
 
     @Test
     @DisplayName("약속 참가 신청에 성공하면 PENDING 상태로 생성된다.")
@@ -124,7 +124,86 @@ class JoinServiceTest {
         JoinAppointmentRequestDto dto = new JoinAppointmentRequestDto(2L, joiner.getId(), answerRequestDtos);
 
         // when
-        assertThrows(IllegalArgumentException.class, () -> joinService.requestJoin(dto));
+        assertThrows(AppointmentException.class, () -> joinService.requestJoin(dto));
     }
+
+    @Test
+    @DisplayName("참가 신청 목록 중 대기 상태인 것들만 불러온다.")
+    void getJoinStatusPending() {
+        // given
+        Appointment saved = fakeAppointmentRepository.save(
+                Appointment.create(null, title, user, description, sport, location, dateInfo, 10));
+
+        List<AnswerRequestDto> answerRequestDtos = getAnswers(3);
+
+        User joiner1 = fakeUserRepository.save(new User(null, 20, "test"));
+        User joiner2 = fakeUserRepository.save(new User(null, 20, "test"));
+
+        JoinAppointmentRequestDto dto1 = new JoinAppointmentRequestDto(saved.getId(), joiner1.getId(), answerRequestDtos);
+        JoinAppointmentRequestDto dto2 = new JoinAppointmentRequestDto(saved.getId(), joiner2.getId(), answerRequestDtos);
+
+        // when
+        Join join1 = joinService.requestJoin(dto1);
+        Join join2 = joinService.requestJoin(dto2);
+
+        join2.accepted();
+
+        List<Join> joins = joinService.getJoins(saved.getId(), JoinStatus.PENDING);
+
+        // then
+        assertEquals(1, joins.size());
+        assertEquals(JoinStatus.PENDING, joins.get(0).getStatus());
+    }
+
+    @Test
+    @DisplayName("참가 신청을 수락하면 ACCEPTED 상태가 된다.")
+    void join_accepted() {
+        // given
+        Appointment saved = fakeAppointmentRepository.save(
+                Appointment.create(null, title, user, description, sport, location, dateInfo, 10));
+
+        List<AnswerRequestDto> answerRequestDtos = getAnswers(3);
+
+        User joiner1 = fakeUserRepository.save(new User(null, 20, "test"));
+
+        JoinAppointmentRequestDto dto1 = new JoinAppointmentRequestDto(saved.getId(), joiner1.getId(), answerRequestDtos);
+
+        // when
+        Join join1 = joinService.requestJoin(dto1);
+        joinService.approveJoin(join1.getId());
+
+        Participants participants = saved.getParticipants();
+
+        // then
+        assertEquals(2, saved.participantsCount());
+        assertEquals(joiner1, participants.getParticipants().get(1).getUser());
+    }
+
+    @Test
+    @DisplayName("참가 신청을 거절하면 REJECTED 상태가 된다.")
+    void join_rejected() {
+        // given
+        Appointment saved = fakeAppointmentRepository.save(
+                Appointment.create(null, title, user, description, sport, location, dateInfo, 10));
+
+        List<AnswerRequestDto> answerRequestDtos = getAnswers(3);
+
+        User joiner1 = fakeUserRepository.save(new User(null, 20, "test"));
+
+        JoinAppointmentRequestDto dto1 = new JoinAppointmentRequestDto(saved.getId(), joiner1.getId(), answerRequestDtos);
+
+        // when
+        Join join1 = joinService.requestJoin(dto1);
+        joinService.rejectJoin(join1.getId());
+
+        List<Join> joins = joinService.getJoins(saved.getId(), JoinStatus.PENDING);
+
+        // then
+        assertEquals(0, joins.size());
+        assertEquals(1, saved.participantsCount());
+        assertEquals(JoinStatus.REJECTED, join1.getStatus());
+
+    }
+
 
 }

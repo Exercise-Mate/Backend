@@ -1,5 +1,7 @@
 package com.f3.exercise_mate.appointment.domain;
 
+import com.f3.exercise_mate.appointment.application.exception.AppointmentErrorCode;
+import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ public class Questions {
         }
 
         if (questions.contains(null)) {
-            throw new IllegalArgumentException("질문 리스트에 null이 포함 될 수 없습니다.");
+            throw new AppointmentException(AppointmentErrorCode.QUESTION_LIST_NULL);
         }
 
         this.questions = new ArrayList<>(questions);
@@ -32,7 +34,7 @@ public class Questions {
 
     public void add(Question question) {
         if(question == null) {
-            throw new IllegalArgumentException("질문은 null일 수 없습니다.");
+            throw new AppointmentException(AppointmentErrorCode.QUESTION_NULL);
         }
 
         questions.add(question);

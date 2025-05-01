@@ -1,7 +1,10 @@
 package com.f3.exercise_mate.appointment.domain;
 
+import jakarta.persistence.Embeddable;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /*
 *   kakao API return 값
@@ -19,6 +22,8 @@ import lombok.Getter;
     "y": "37.5443222301513"
 * */
 @Getter
+@Embeddable
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 public class Location {
     private String address;
