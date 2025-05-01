@@ -23,4 +23,19 @@ public class Join {
         this.answers = answers;
         this.status = JoinStatus.PENDING;
     }
+
+    public Join(Appointment appointment, User user, List<Answer> answers, JoinStatus status) {
+        this.appointment = appointment;
+        this.user = user;
+        this.answers = answers;
+        this.status = status;
+    }
+
+    public void accepted() {
+        this.status = JoinStatus.ACCEPTED;
+    }
+
+    public void rejected() {
+        this.status = JoinStatus.REJECTED;
+    }
 }
