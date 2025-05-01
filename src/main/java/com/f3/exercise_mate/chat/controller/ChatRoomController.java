@@ -20,20 +20,11 @@ public class ChatRoomController {
 
     // 채팅방 개설
     @PostMapping(value = "/chat-room")
-    public ResponseEntity<Long> create(@RequestBody CreateRoomReqDTO request){
-        log.info("# Create Chat Room , name: " + request.getChatRoomName());
+    public ResponseEntity<Long> create(@RequestBody CreateRoomReqDTO createRoomReqDTO){
+        log.info("# Create Chat Room , name: " + createRoomReqDTO.getChatRoomName());
 
-        Long createdRoomId = chatRoomService.create(request.getMemberId(), request.getChatRoomName());
+        Long createdRoomId = chatRoomService.create(createRoomReqDTO);
         return ResponseEntity.ok(createdRoomId);
-    }
-
-    // 특정 채팅방 조회
-    @GetMapping("/chat-room")
-    public ResponseEntity<Long> roomById(@RequestBody Long chatRoomId){
-        log.info("# get Chat Room, roomID : " + chatRoomId);
-
-        ChatRoom foundRoom = chatRoomService.findById(chatRoomId);
-        return ResponseEntity.ok(foundRoom.getId());
     }
 
     // 채팅방 목록 조회
@@ -43,6 +34,15 @@ public class ChatRoomController {
 
         List<ChatRoom> allRooms = chatRoomService.findAll();
         return ResponseEntity.ok(allRooms);
+    }
+
+    // 특정 채팅방 조회
+    @GetMapping("/chat-room")
+    public ResponseEntity<ChatRoom> roomById(@RequestBody Long chatRoomId){
+        log.info("# get Chat Room, roomID : " + chatRoomId);
+
+        ChatRoom foundRoom = chatRoomService.findById(chatRoomId);
+        return ResponseEntity.ok(foundRoom);
     }
 
 
