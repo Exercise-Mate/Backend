@@ -20,6 +20,7 @@ public class ClubTest {
                 .mainArea("서울 은평구")
                 .sportAbilityMin(SportAbility.BEGINNER)
                 .sportAbilityMax(SportAbility.EXPERT)
+                .description("클라이밍 같이 즐겨요!")
                 .build();
 
         // when & then
@@ -37,6 +38,7 @@ public class ClubTest {
                 .mainArea("서울 은평구")
                 .sportAbilityMin(SportAbility.BEGINNER)
                 .sportAbilityMax(SportAbility.EXPERT)
+                .description("클라이밍 같이 즐겨요!")
                 .build();
 
         // when & then
@@ -54,6 +56,7 @@ public class ClubTest {
                 .sportType("클라이밍")
                 .sportAbilityMin(SportAbility.BEGINNER)
                 .sportAbilityMax(SportAbility.EXPERT)
+                .description("클라이밍 같이 즐겨요!")
                 .build();
 
         // when & then
@@ -71,6 +74,7 @@ public class ClubTest {
                 .sportType("클라이밍")
                 .mainArea("서울 은평구")
                 .sportAbilityMax(SportAbility.EXPERT)
+                .description("클라이밍 같이 즐겨요!")
                 .build();
 
         // when & then
@@ -88,12 +92,31 @@ public class ClubTest {
                 .sportType("클라이밍")
                 .mainArea("서울 은평구")
                 .sportAbilityMin(SportAbility.BEGINNER)
+                .description("클라이밍 같이 즐겨요!")
                 .build();
 
         // when & then
         assertThatThrownBy(() -> Club.create(invalidClub))
                 .isInstanceOf(ClubException.class)
                 .hasMessageContaining(ClubErrorCode.CLUB_CREATE_SPORT_ABILITY_MAX_NOT_FOUND.getErrorMessage());
+    }
+
+    @DisplayName("클럽 생성 시 클럽 소개가 없으면 예외가 발생한다.")
+    @Test
+    void createClubExceptionDescriptionMissing() {
+        // given
+        Club invalidClub = Club.builder()
+                .name("DM 크루")
+                .sportType("클라이밍")
+                .mainArea("서울 은평구")
+                .sportAbilityMin(SportAbility.BEGINNER)
+                .sportAbilityMax(SportAbility.EXPERT)
+                .build();
+
+        // when & then
+        assertThatThrownBy(() -> Club.create(invalidClub))
+                .isInstanceOf(ClubException.class)
+                .hasMessageContaining(ClubErrorCode.CLUB_CREATE_DESCRIPTION_NOT_FOUND.getErrorMessage());
     }
 
     @DisplayName("클럽 생성 시 모든 필수값이 제공되면 클럽이 정상적으로 생성된다.")
@@ -106,6 +129,7 @@ public class ClubTest {
                 .mainArea("서울 은평구")
                 .sportAbilityMin(SportAbility.BEGINNER)
                 .sportAbilityMax(SportAbility.EXPERT)
+                .description("클라이밍 같이 즐겨요!")
                 .build();
 
         // when
@@ -115,5 +139,6 @@ public class ClubTest {
         assertEquals(validClub.getName(), createdClub.getName());
         assertEquals(validClub.getSportType(), createdClub.getSportType());
         assertEquals(validClub.getMainArea(), createdClub.getMainArea());
+        assertEquals(validClub.getDescription(), createdClub.getDescription());
     }
 }

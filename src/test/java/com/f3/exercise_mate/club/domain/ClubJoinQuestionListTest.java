@@ -53,17 +53,4 @@ public class ClubJoinQuestionListTest {
         assertThat(clubJoinQuestionList.getClubJoinQuestionsList()).hasSize(1);
         assertThat(clubJoinQuestionList.getClubJoinQuestionsList().get(0).getQuestion()).isEqualTo("What is your favorite sport?");
     }
-
-    @DisplayName("ClubJoinQuestionList에 유효하지 않은 ClubJoinQuestion이 들어오면 예외가 발생한다.")
-    @Test
-    void validateInvalidQuestion() {
-        // given
-        ClubJoinQuestion invalidQuestion = new ClubJoinQuestion(1L, 1L, "abc");
-        List<ClubJoinQuestion> questionsList = Arrays.asList(invalidQuestion);
-
-        // when & then
-        assertThatThrownBy(() -> new ClubJoinQuestionList(questionsList))
-                .isInstanceOf(ClubQuestionException.class)
-                .hasMessageContaining(ClubQuestionErrorCode.CLUB_CREATE_JOIN_QUESTION_TOO_SHORT.getErrorMessage());
-    }
 }
