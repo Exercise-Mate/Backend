@@ -17,7 +17,7 @@ public class FakeUserRepository implements UserRepository {
             return user;
         }
         Long id = store.size() + 1L;
-        store.put(id, user);
+        store.put(id, new User(id, user.getAge(), user.getUsername()));
         return store.get(id);
     }
 
