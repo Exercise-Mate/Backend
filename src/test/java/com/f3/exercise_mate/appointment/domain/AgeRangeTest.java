@@ -1,5 +1,6 @@
 package com.f3.exercise_mate.appointment.domain;
 
+import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -36,7 +37,7 @@ class AgeRangeTest {
         int max = 20;
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> new AgeRange(min, max));
+        assertThrows(AppointmentException.class, () -> new AgeRange(min, max));
     }
 
     @Test
@@ -47,8 +48,8 @@ class AgeRangeTest {
         int max = -1;
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> new AgeRange(min, 0));
-        assertThrows(IllegalArgumentException.class, () -> new AgeRange(0, max));
+        assertThrows(AppointmentException.class, () -> new AgeRange(min, 0));
+        assertThrows(AppointmentException.class, () -> new AgeRange(0, max));
     }
 
     @Test
@@ -59,7 +60,7 @@ class AgeRangeTest {
         int max = 101;
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> new AgeRange(min, max));
+        assertThrows(AppointmentException.class, () -> new AgeRange(min, max));
     }
 
     @Test

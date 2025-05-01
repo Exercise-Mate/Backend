@@ -1,5 +1,6 @@
 package com.f3.exercise_mate.appointment.domain;
 
+import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
 import com.f3.exercise_mate.user.domain.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -45,7 +46,7 @@ class AppointmentTest {
         String underTitle = "a".repeat(4);
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> Appointment.create(1L, underTitle, creator, description, sport, location, dateInfo, 10));
+        assertThrows(AppointmentException.class, () -> Appointment.create(1L, underTitle, creator, description, sport, location, dateInfo, 10));
     }
 
     @Test
@@ -55,7 +56,7 @@ class AppointmentTest {
         String overTitle = "a".repeat(101);
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> Appointment.create(1L, overTitle, creator, description, sport, location, dateInfo, 10));
+        assertThrows(AppointmentException.class, () -> Appointment.create(1L, overTitle, creator, description, sport, location, dateInfo, 10));
     }
 
     @Test
@@ -65,7 +66,7 @@ class AppointmentTest {
         String underDescription = "a".repeat(4);
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> Appointment.create(1L, title, creator, underDescription, sport, location, dateInfo, 10));
+        assertThrows(AppointmentException.class, () -> Appointment.create(1L, title, creator, underDescription, sport, location, dateInfo, 10));
     }
 
     @Test
@@ -75,7 +76,7 @@ class AppointmentTest {
         String overDescription = "a".repeat(501);
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> Appointment.create(1L, title, creator, overDescription, sport, location, dateInfo, 10));
+        assertThrows(AppointmentException.class, () -> Appointment.create(1L, title, creator, overDescription, sport, location, dateInfo, 10));
     }
 
     @ParameterizedTest
@@ -83,7 +84,7 @@ class AppointmentTest {
     @DisplayName("약속의 제목이 null 이거나 Empty이면 에러발생")
     void titleIsNull_createAppointment_throwError(String value) {
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> Appointment.create(1L, value, creator, description, sport, location, dateInfo, 10));
+        assertThrows(AppointmentException.class, () -> Appointment.create(1L, value, creator, description, sport, location, dateInfo, 10));
     }
 
     @ParameterizedTest
@@ -91,7 +92,7 @@ class AppointmentTest {
     @DisplayName("약속의 제목이 null 이거나 Empty이면 에러발생")
     void setDescriptionIsNull_createAppointment_throwError(String value) {
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> Appointment.create(1L, title, creator, value, sport, location, dateInfo, 10));
+        assertThrows(AppointmentException.class, () -> Appointment.create(1L, title, creator, value, sport, location, dateInfo, 10));
     }
 
     @Test
@@ -101,7 +102,7 @@ class AppointmentTest {
         Appointment appointment = Appointment.create(1L, title, creator, description, sport, location, dateInfo, 10);
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> appointment.join(creator));
+        assertThrows(AppointmentException.class, () -> appointment.join(creator));
     }
 
     @DisplayName("참여자가 탈퇴하면 Participants에서 제거된다")
@@ -130,6 +131,6 @@ class AppointmentTest {
         User stranger = new User(2L, 20, "stranger");
 
         // when, then
-        assertThrows(IllegalArgumentException.class, () -> appointment.exit(stranger));
+        assertThrows(AppointmentException.class, () -> appointment.exit(stranger));
     }
 }
