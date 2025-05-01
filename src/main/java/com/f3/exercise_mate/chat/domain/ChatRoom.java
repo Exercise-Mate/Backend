@@ -17,24 +17,9 @@ public class ChatRoom {
     private Long memberId;
     private String name;
 
-    // 현재 접속 중인 세션을 관리할 필요가 없음 -> 삭제 예정
-    private final Set<String> sessions = ConcurrentHashMap.newKeySet();
-
     /**
      * 생성 메서드
      */
-    // 현재 접속 중인 세션을 관리할 필요가 없음 -> 삭제 예정
-    public static ChatRoom create(Long id, Long memberId, String name, String sessionId){
-        ChatRoom room = new ChatRoom();
-
-        room.id = id;
-        room.memberId = memberId;
-        room.name = name;
-        room.sessions.add(sessionId);
-
-        return room;
-    }
-
     public static ChatRoom create(Long id, Long memberId, String name){
         ChatRoom room = new ChatRoom();
 
