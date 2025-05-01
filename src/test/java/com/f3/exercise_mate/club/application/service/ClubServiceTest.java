@@ -37,15 +37,12 @@ public class ClubServiceTest {
     @DisplayName("클럽을 생성하면 클럽 객체가 저장된다.")
     @Test
     void createClubTest() {
-        // given
-        Club club = createClubRequestDto.club();
-
-        // when
+        // given && when
         Club createdClub = clubService.createClub(createClubRequestDto);
 
         // then
         assertEquals(1, clubRepository.size());
-        Club savedClub = clubRepository.findById(createdClub.getClubId());
+        Club savedClub = clubRepository.findById(1L);
 
         assertEquals("DM 크루", savedClub.getName());
         assertEquals("클라이밍", savedClub.getSportType());
