@@ -1,6 +1,6 @@
 package com.f3.exercise_mate.chat.repository;
 
-import com.f3.exercise_mate.chat.entity.ChatRoom;
+import com.f3.exercise_mate.chat.domain.ChatRoom;
 import com.f3.exercise_mate.chat.exception.ChatRoomErrorCode;
 import com.f3.exercise_mate.chat.exception.ChatRoomException;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,13 +11,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ChatRoomRepositoryTest {
+class FakeChatRoomRepositoryTest {
 
-    private ChatRoomRepository chatRoomRepository;
+    private FakeChatRoomRepository fakeChatRoomRepository;
 
     @BeforeEach
     void setUp() {
-        chatRoomRepository = new ChatRoomRepository();
+        fakeChatRoomRepository = new FakeChatRoomRepository();
     }
 
     @Test
@@ -28,7 +28,7 @@ class ChatRoomRepositoryTest {
         String chatRoomName = "테니스방";
 
         //when
-        Long savedRoomId = chatRoomRepository.save(memberId, chatRoomName);
+        Long savedRoomId = fakeChatRoomRepository.save(memberId, chatRoomName);
 
         //then
         assertEquals(1, savedRoomId);
@@ -46,9 +46,9 @@ class ChatRoomRepositoryTest {
         String chatRoomName3 = "클라이밍방";
 
         //when
-        Long savedRoomId = chatRoomRepository.save(memberId, chatRoomName);
-        Long savedRoomId2 = chatRoomRepository.save(memberId2, chatRoomName2);
-        Long savedRoomId3 = chatRoomRepository.save(memberId3, chatRoomName3);
+        Long savedRoomId = fakeChatRoomRepository.save(memberId, chatRoomName);
+        Long savedRoomId2 = fakeChatRoomRepository.save(memberId2, chatRoomName2);
+        Long savedRoomId3 = fakeChatRoomRepository.save(memberId3, chatRoomName3);
 
         //then
         assertEquals(1, savedRoomId);
@@ -65,7 +65,7 @@ class ChatRoomRepositoryTest {
         String chatRoomName = "테니스방";
 
         //when, then
-        ChatRoomException exception = assertThrows(ChatRoomException.class, () -> chatRoomRepository.save(memberId, chatRoomName));
+        ChatRoomException exception = assertThrows(ChatRoomException.class, () -> fakeChatRoomRepository.save(memberId, chatRoomName));
 
         assertEquals(ChatRoomErrorCode.CHATROOM_CREATE_MEMBER_ID_NOT_FOUND.name(), exception.getErrorCode());
     }
@@ -79,7 +79,7 @@ class ChatRoomRepositoryTest {
         String chatRoomName = null;
 
         //when, then
-        ChatRoomException exception = assertThrows(ChatRoomException.class, () -> chatRoomRepository.save(memberId, chatRoomName));
+        ChatRoomException exception = assertThrows(ChatRoomException.class, () -> fakeChatRoomRepository.save(memberId, chatRoomName));
 
         assertEquals(ChatRoomErrorCode.CHATROOM_CREATE_NAME_NOT_FOUND.name(), exception.getErrorCode());
     }
@@ -93,7 +93,7 @@ class ChatRoomRepositoryTest {
         String chatRoomName = "";
 
         //when, then
-        ChatRoomException exception = assertThrows(ChatRoomException.class, () -> chatRoomRepository.save(memberId, chatRoomName));
+        ChatRoomException exception = assertThrows(ChatRoomException.class, () -> fakeChatRoomRepository.save(memberId, chatRoomName));
 
         assertEquals(ChatRoomErrorCode.CHATROOM_CREATE_NAME_NOT_FOUND.name(), exception.getErrorCode());
     }
@@ -107,7 +107,7 @@ class ChatRoomRepositoryTest {
         String chatRoomName = "     \t              ";
 
         //when, then
-        ChatRoomException exception = assertThrows(ChatRoomException.class, () -> chatRoomRepository.save(memberId, chatRoomName));
+        ChatRoomException exception = assertThrows(ChatRoomException.class, () -> fakeChatRoomRepository.save(memberId, chatRoomName));
 
         assertEquals(ChatRoomErrorCode.CHATROOM_CREATE_NAME_NOT_FOUND.name(), exception.getErrorCode());
     }
@@ -116,12 +116,12 @@ class ChatRoomRepositoryTest {
     @DisplayName("채팅방 전체 조회 시, 최신순으로 정렬되어 반환")
     void 채팅방_전체조회_최신순() {
         // given
-        Long id1 = chatRoomRepository.save(1L, "테니스방");
-        Long id2 = chatRoomRepository.save(2L, "농구방");
-        Long id3 = chatRoomRepository.save(3L, "클라이밍방");
+        Long id1 = fakeChatRoomRepository.save(1L, "테니스방");
+        Long id2 = fakeChatRoomRepository.save(2L, "농구방");
+        Long id3 = fakeChatRoomRepository.save(3L, "클라이밍방");
 
         // when
-        List<ChatRoom> allRooms = chatRoomRepository.findAll();
+        List<ChatRoom> allRooms = fakeChatRoomRepository.findAll();
 
         // then
         assertEquals(3, allRooms.size());
@@ -140,10 +140,10 @@ class ChatRoomRepositoryTest {
     @DisplayName("ID로 채팅방 조회 성공")
     void 채팅방_ID조회_성공() {
         // given
-        Long id = chatRoomRepository.save(1L, "테니스방");
+        Long id = fakeChatRoomRepository.save(1L, "테니스방");
 
         // when
-        ChatRoom foundRoom = chatRoomRepository.findById(id);
+        ChatRoom foundRoom = fakeChatRoomRepository.findById(id);
 
         // then
         assertNotNull(foundRoom);
@@ -155,7 +155,7 @@ class ChatRoomRepositoryTest {
     @DisplayName("존재하지 않는 ID로 채팅방 조회 시 null 반환")
     void 채팅방_ID조회_실패() {
         // when
-        ChatRoom foundRoom = chatRoomRepository.findById(-1L);
+        ChatRoom foundRoom = fakeChatRoomRepository.findById(-1L);
 
         // then
         assertNull(foundRoom);

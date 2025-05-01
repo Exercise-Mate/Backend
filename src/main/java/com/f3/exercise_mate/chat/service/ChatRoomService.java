@@ -1,6 +1,6 @@
 package com.f3.exercise_mate.chat.service;
 
-import com.f3.exercise_mate.chat.entity.ChatRoom;
+import com.f3.exercise_mate.chat.domain.ChatRoom;
 import com.f3.exercise_mate.chat.exception.ChatRoomErrorCode;
 import com.f3.exercise_mate.chat.exception.ChatRoomException;
 import com.f3.exercise_mate.chat.repository.ChatRoomRepository;

@@ -1,6 +1,6 @@
 package com.f3.exercise_mate.chat.controller;
 
-import com.f3.exercise_mate.chat.entity.ChatMessage;
+import com.f3.exercise_mate.chat.domain.ChatMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

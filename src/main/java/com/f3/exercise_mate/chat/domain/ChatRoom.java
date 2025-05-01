@@ -1,4 +1,4 @@
-package com.f3.exercise_mate.chat.entity;
+package com.f3.exercise_mate.chat.domain;
 
 import com.f3.exercise_mate.chat.exception.ChatRoomErrorCode;
 import com.f3.exercise_mate.chat.exception.ChatRoomException;
