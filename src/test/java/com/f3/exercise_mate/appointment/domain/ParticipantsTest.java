@@ -1,6 +1,6 @@
 package com.f3.exercise_mate.appointment.domain;
 
-import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import com.f3.exercise_mate.user.domain.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -61,7 +61,7 @@ class ParticipantsTest {
         participants.add(participant1);
 
         // when, then
-        assertThrows(AppointmentException.class, () -> participants.add(participant1));
+        assertThrows(ExerciseMateException.class, () -> participants.add(participant1));
     }
 
     @Test
@@ -71,7 +71,7 @@ class ParticipantsTest {
         Participants participants = new Participants();
 
         // when, then
-        assertThrows(AppointmentException.class, () -> participants.add(null));
+        assertThrows(ExerciseMateException.class, () -> participants.add(null));
     }
 
     @Test
@@ -81,7 +81,7 @@ class ParticipantsTest {
         Participants participants = new Participants(List.of(participant1), 1);
 
         // when, then
-        assertThrows(AppointmentException.class, () -> participants.add(participant2));
+        assertThrows(ExerciseMateException.class, () -> participants.add(participant2));
     }
 
     @Test
@@ -106,7 +106,7 @@ class ParticipantsTest {
         participants.add(participant1);
 
         // when, then
-        assertThrows(AppointmentException.class, () -> participants.remove(null));
+        assertThrows(ExerciseMateException.class, () -> participants.remove(null));
     }
 
     @Test
@@ -117,6 +117,6 @@ class ParticipantsTest {
         participants.add(participant1);
 
         // when, then
-        assertThrows(AppointmentException.class, () -> participants.remove(participant2));
+        assertThrows(ExerciseMateException.class, () -> participants.remove(participant2));
     }
 }

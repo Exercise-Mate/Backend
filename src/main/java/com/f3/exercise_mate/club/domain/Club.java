@@ -1,8 +1,8 @@
 package com.f3.exercise_mate.club.domain;
 
-import com.f3.exercise_mate.club.exception.ClubException;
-import com.f3.exercise_mate.club.exception.ClubErrorCode;
 import com.f3.exercise_mate.common.entity.SportAbility;
+import com.f3.exercise_mate.common.exception.ErrorCode;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import lombok.Getter;
 import lombok.Builder;
 
@@ -45,22 +45,22 @@ public class Club {
 
     private void checkCreateRequiredValue() {
         if (this.name == null || this.name.isEmpty()) {
-            throw new ClubException(ClubErrorCode.CLUB_CREATE_NAME_NOT_FOUND);
+            throw new ExerciseMateException(ErrorCode.CLUB_CREATE_NAME_NOT_FOUND);
         }
         if (this.description == null || this.description.isEmpty()) {
-            throw new ClubException(ClubErrorCode.CLUB_CREATE_DESCRIPTION_NOT_FOUND);
+            throw new ExerciseMateException(ErrorCode.CLUB_CREATE_DESCRIPTION_NOT_FOUND);
         }
         if (this.sportType == null || this.sportType.isEmpty()) {
-            throw new ClubException(ClubErrorCode.CLUB_CREATE_SPORT_TYPE_NOT_FOUND);
+            throw new ExerciseMateException(ErrorCode.CLUB_CREATE_SPORT_TYPE_NOT_FOUND);
         }
         if (this.mainArea == null || this.mainArea.isEmpty()) {
-            throw new ClubException(ClubErrorCode.CLUB_CREATE_MAIN_AREA_NOT_FOUND);
+            throw new ExerciseMateException(ErrorCode.CLUB_CREATE_MAIN_AREA_NOT_FOUND);
         }
         if (this.sportAbilityMin == null) {
-            throw new ClubException(ClubErrorCode.CLUB_CREATE_SPORT_ABILITY_MIN_NOT_FOUND);
+            throw new ExerciseMateException(ErrorCode.CLUB_CREATE_SPORT_ABILITY_MIN_NOT_FOUND);
         }
         if (this.sportAbilityMax == null) {
-            throw new ClubException(ClubErrorCode.CLUB_CREATE_SPORT_ABILITY_MAX_NOT_FOUND);
+            throw new ExerciseMateException(ErrorCode.CLUB_CREATE_SPORT_ABILITY_MAX_NOT_FOUND);
         }
     }
 }

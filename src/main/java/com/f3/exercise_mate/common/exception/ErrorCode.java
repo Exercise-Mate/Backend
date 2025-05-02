@@ -1,6 +1,6 @@
-package com.f3.exercise_mate.appointment.application.exception;
+package com.f3.exercise_mate.common.exception;
 
-public enum AppointmentErrorCode {
+public enum ErrorCode {
     // 📌 Appointment
     APPOINTMENT_TITLE_REQUIRED("A001", "약속 제목은 필수입니다."),
     APPOINTMENT_TITLE_LENGTH_INVALID("A002", "약속 제목은 5~100자여야 합니다."),
@@ -32,12 +32,31 @@ public enum AppointmentErrorCode {
     QUESTION_TOO_SHORT("Q002", "질문의 최소 길이는 5자입니다."),
     QUESTION_TOO_LONG("Q003", "질문의 최대 길이는 200자입니다."),
     QUESTION_LIST_NULL("Q004", "질문 리스트에 null이 포함될 수 없습니다."),
-    QUESTION_NULL("Q005", "질문은 null일 수 없습니다.");
+    QUESTION_NULL("Q005", "질문은 null일 수 없습니다."),
+
+    // Club
+    CLUB_CREATE_NAME_NOT_FOUND("C001", "클럽명은 필수입니다."),
+    CLUB_CREATE_DESCRIPTION_NOT_FOUND("C002", "클럽소개는 필수입니다."),
+    CLUB_CREATE_SPORT_TYPE_NOT_FOUND("C003", "운동 종목은 필수입니다."),
+    CLUB_CREATE_MAIN_AREA_NOT_FOUND("C004", "주 활동 지역은 필수입니다."),
+    CLUB_CREATE_SPORT_ABILITY_MIN_NOT_FOUND("C005", "운동 실력 최소는 필수입니다."),
+    CLUB_CREATE_SPORT_ABILITY_MAX_NOT_FOUND("C006", "운동 실력 최대는 필수입니다."),
+
+    // ClubQuestion
+    CLUB_CREATE_JOIN_QUESTION_TOO_SHORT("CQ001", "질문은 최소 5자 이상이어야 합니다."),
+    CLUB_CREATE_JOIN_QUESTION_TOO_LONG("CQ002", "질문은 최대 200자까지 입력 가능합니다."),
+
+    // Chat
+    CHATROOM_CREATE_MEMBER_ID_NOT_FOUND("CH001", "채팅방을 생성하는 회원의 ID값은 필수입니다."),
+    CHATROOM_CREATE_NAME_NOT_FOUND("CH001", "생성할 채팅방의 이름은 필수입니다."),
+    CHATROOM_NOT_FOUND("CH003", "해당 채팅방을 찾을 수 없습니다."),
+    CHATROOM_CREATE_ID_NOT_MATCH("CH004", "생성된 채팅방 ID가 예상값과 일치하지 않습니다.");
+
 
     private final String code;
     private final String message;
 
-    AppointmentErrorCode(String code, String message) {
+    ErrorCode(String code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -46,7 +65,7 @@ public enum AppointmentErrorCode {
         return code;
     }
 
-    public String getMessage() {
+    public String getErrorMessage() {
         return message;
     }
 }

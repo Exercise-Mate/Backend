@@ -1,8 +1,8 @@
 package com.f3.exercise_mate.appointment.application.service;
 
 import com.f3.exercise_mate.appointment.application.dto.JoinAppointmentRequestDto;
-import com.f3.exercise_mate.appointment.application.exception.AppointmentErrorCode;
-import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
+import com.f3.exercise_mate.common.exception.ErrorCode;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import com.f3.exercise_mate.appointment.application.interfaces.AppointmentRepository;
 import com.f3.exercise_mate.appointment.application.interfaces.JoinRepository;
 import com.f3.exercise_mate.appointment.application.interfaces.QuestionRepository;
@@ -36,7 +36,7 @@ public class JoinService {
         Appointment appointment = appointmentService.getAppointment(dto.appointmentId());
 
         if(!appointment.isAvailableAge(user.getAge())) {
-            throw new AppointmentException(AppointmentErrorCode.AGE_RANGE_NOT_ACCEPTED);
+            throw new ExerciseMateException(ErrorCode.AGE_RANGE_NOT_ACCEPTED);
         }
 
         List<Answer> answers = dto.answers().stream()

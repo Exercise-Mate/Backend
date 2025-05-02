@@ -1,6 +1,6 @@
 package com.f3.exercise_mate.appointment.domain;
 
-import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import com.f3.exercise_mate.user.domain.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,7 +50,7 @@ class QuestionsTest {
         list.add(question);
 
         // when, then
-        assertThrows(AppointmentException.class, () -> new Questions(list));
+        assertThrows(ExerciseMateException.class, () -> new Questions(list));
     }
 
     @Test
@@ -77,7 +77,7 @@ class QuestionsTest {
         Questions questions = new Questions();
 
         // when, then
-        assertThrows(AppointmentException.class, () -> questions.add(null));
+        assertThrows(ExerciseMateException.class, () -> questions.add(null));
     }
 
     @Test

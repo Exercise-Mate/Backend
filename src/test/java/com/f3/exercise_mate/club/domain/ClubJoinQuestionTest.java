@@ -1,7 +1,7 @@
 package com.f3.exercise_mate.club.domain;
 
-import com.f3.exercise_mate.club.exception.ClubQuestionErrorCode;
-import com.f3.exercise_mate.club.exception.ClubQuestionException;
+import com.f3.exercise_mate.common.exception.ErrorCode;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,8 +18,8 @@ public class ClubJoinQuestionTest {
 
         // when & then
         assertThatThrownBy(() -> new ClubJoinQuestion(1L, 1L, shortQuestion))
-                .isInstanceOf(ClubQuestionException.class)
-                .hasMessageContaining(ClubQuestionErrorCode.CLUB_CREATE_JOIN_QUESTION_TOO_SHORT.getErrorMessage());
+                .isInstanceOf(ExerciseMateException.class)
+                .hasMessageContaining(ErrorCode.CLUB_CREATE_JOIN_QUESTION_TOO_SHORT.getErrorMessage());
     }
 
     @DisplayName("질문이 200자 이상이면 예외가 발생한다.")
@@ -30,8 +30,8 @@ public class ClubJoinQuestionTest {
 
         // when & then
         assertThatThrownBy(() -> new ClubJoinQuestion(1L, 1L, longQuestion))
-                .isInstanceOf(ClubQuestionException.class)
-                .hasMessageContaining(ClubQuestionErrorCode.CLUB_CREATE_JOIN_QUESTION_TOO_LONG.getErrorMessage());
+                .isInstanceOf(ExerciseMateException.class)
+                .hasMessageContaining(ErrorCode.CLUB_CREATE_JOIN_QUESTION_TOO_LONG.getErrorMessage());
     }
 
     @DisplayName("질문이 유효하면 객체가 정상적으로 생성된다.")

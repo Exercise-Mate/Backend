@@ -1,8 +1,8 @@
 package com.f3.exercise_mate.chat.repository;
 
 import com.f3.exercise_mate.chat.domain.ChatRoom;
-import com.f3.exercise_mate.chat.exception.ChatRoomErrorCode;
-import com.f3.exercise_mate.chat.exception.ChatRoomException;
+import com.f3.exercise_mate.common.exception.ErrorCode;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -65,9 +65,9 @@ class FakeChatRoomRepositoryTest {
         String chatRoomName = "테니스방";
 
         //when, then
-        ChatRoomException exception = assertThrows(ChatRoomException.class, () -> fakeChatRoomRepository.save(memberId, chatRoomName));
+        ExerciseMateException exception = assertThrows(ExerciseMateException.class, () -> fakeChatRoomRepository.save(memberId, chatRoomName));
 
-        assertEquals(ChatRoomErrorCode.CHATROOM_CREATE_MEMBER_ID_NOT_FOUND.name(), exception.getErrorCode());
+        assertEquals(ErrorCode.CHATROOM_CREATE_MEMBER_ID_NOT_FOUND.name(), exception.getErrorCode());
     }
 
     @Test
@@ -79,9 +79,9 @@ class FakeChatRoomRepositoryTest {
         String chatRoomName = null;
 
         //when, then
-        ChatRoomException exception = assertThrows(ChatRoomException.class, () -> fakeChatRoomRepository.save(memberId, chatRoomName));
+        ExerciseMateException exception = assertThrows(ExerciseMateException.class, () -> fakeChatRoomRepository.save(memberId, chatRoomName));
 
-        assertEquals(ChatRoomErrorCode.CHATROOM_CREATE_NAME_NOT_FOUND.name(), exception.getErrorCode());
+        assertEquals(ErrorCode.CHATROOM_CREATE_NAME_NOT_FOUND.name(), exception.getErrorCode());
     }
 
     @Test
@@ -93,9 +93,9 @@ class FakeChatRoomRepositoryTest {
         String chatRoomName = "";
 
         //when, then
-        ChatRoomException exception = assertThrows(ChatRoomException.class, () -> fakeChatRoomRepository.save(memberId, chatRoomName));
+        ExerciseMateException exception = assertThrows(ExerciseMateException.class, () -> fakeChatRoomRepository.save(memberId, chatRoomName));
 
-        assertEquals(ChatRoomErrorCode.CHATROOM_CREATE_NAME_NOT_FOUND.name(), exception.getErrorCode());
+        assertEquals(ErrorCode.CHATROOM_CREATE_NAME_NOT_FOUND.name(), exception.getErrorCode());
     }
 
     @Test
@@ -107,9 +107,9 @@ class FakeChatRoomRepositoryTest {
         String chatRoomName = "     \t              ";
 
         //when, then
-        ChatRoomException exception = assertThrows(ChatRoomException.class, () -> fakeChatRoomRepository.save(memberId, chatRoomName));
+        ExerciseMateException exception = assertThrows(ExerciseMateException.class, () -> fakeChatRoomRepository.save(memberId, chatRoomName));
 
-        assertEquals(ChatRoomErrorCode.CHATROOM_CREATE_NAME_NOT_FOUND.name(), exception.getErrorCode());
+        assertEquals(ErrorCode.CHATROOM_CREATE_NAME_NOT_FOUND.name(), exception.getErrorCode());
     }
 
     @Test

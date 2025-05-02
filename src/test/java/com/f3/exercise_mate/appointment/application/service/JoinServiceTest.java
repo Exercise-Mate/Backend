@@ -2,10 +2,9 @@ package com.f3.exercise_mate.appointment.application.service;
 
 import com.f3.exercise_mate.appointment.application.dto.CreateAppointmentRequestDto;
 import com.f3.exercise_mate.appointment.application.dto.JoinAppointmentRequestDto;
-import com.f3.exercise_mate.appointment.application.dto.UpdateAppointmentRequestDto;
 import com.f3.exercise_mate.appointment.application.dto.question.AnswerRequestDto;
 import com.f3.exercise_mate.appointment.application.dto.question.CreateQuestionRequestDto;
-import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import com.f3.exercise_mate.appointment.domain.*;
 import com.f3.exercise_mate.appointment.repository.FakeAppointmentRepository;
 import com.f3.exercise_mate.appointment.repository.FakeJoinRepository;
@@ -124,7 +123,7 @@ class JoinServiceTest {
         JoinAppointmentRequestDto dto = new JoinAppointmentRequestDto(2L, joiner.getId(), answerRequestDtos);
 
         // when
-        assertThrows(AppointmentException.class, () -> joinService.requestJoin(dto));
+        assertThrows(ExerciseMateException.class, () -> joinService.requestJoin(dto));
     }
 
     @Test

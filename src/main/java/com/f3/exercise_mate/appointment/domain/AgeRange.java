@@ -1,7 +1,7 @@
 package com.f3.exercise_mate.appointment.domain;
 
-import com.f3.exercise_mate.appointment.application.exception.AppointmentErrorCode;
-import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
+import com.f3.exercise_mate.common.exception.ErrorCode;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -34,15 +34,15 @@ public class AgeRange {
     private void checkAge(Integer min, Integer max) {
         if(min != null && max != null) {
             if (min < 0 || max < 0) {
-                throw new AppointmentException(AppointmentErrorCode.AGE_RANGE_NEGATIVE);
+                throw new ExerciseMateException(ErrorCode.AGE_RANGE_NEGATIVE);
             }
 
             if (min > max) {
-                throw new AppointmentException(AppointmentErrorCode.AGE_RANGE_MIN_OVER_MAX);
+                throw new ExerciseMateException(ErrorCode.AGE_RANGE_MIN_OVER_MAX);
             }
 
             if (max > MAX_AGE) {
-                throw new AppointmentException(AppointmentErrorCode.AGE_RANGE_EXCEED_MAX);
+                throw new ExerciseMateException(ErrorCode.AGE_RANGE_EXCEED_MAX);
             }
         }
     }
@@ -53,7 +53,7 @@ public class AgeRange {
         }
 
         if(age == null) {
-            throw new AppointmentException(AppointmentErrorCode.AGE_RANGE_AGE_REQUIRED);
+            throw new ExerciseMateException(ErrorCode.AGE_RANGE_AGE_REQUIRED);
         }
 
         return age >= minAge && age <= maxAge;

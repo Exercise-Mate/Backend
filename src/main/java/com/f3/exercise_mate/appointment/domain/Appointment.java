@@ -1,13 +1,11 @@
 package com.f3.exercise_mate.appointment.domain;
 
 import com.f3.exercise_mate.appointment.application.dto.UpdateAppointmentRequestDto;
-import com.f3.exercise_mate.appointment.application.exception.AppointmentErrorCode;
-import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
+import com.f3.exercise_mate.common.exception.ErrorCode;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import com.f3.exercise_mate.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.List;
 
 @Getter
 @Builder
@@ -81,26 +79,26 @@ public class Appointment {
 
     private void validate() {
         if (title == null || title.isEmpty()) {
-            throw new AppointmentException(AppointmentErrorCode.APPOINTMENT_TITLE_REQUIRED);
+            throw new ExerciseMateException(ErrorCode.APPOINTMENT_TITLE_REQUIRED);
         }
 
         if (title.length() < 5 || title.length() > 100) {
-            throw new AppointmentException(AppointmentErrorCode.APPOINTMENT_TITLE_LENGTH_INVALID);
+            throw new ExerciseMateException(ErrorCode.APPOINTMENT_TITLE_LENGTH_INVALID);
         }
 
         if (description == null || description.isEmpty()) {
-            throw new AppointmentException(AppointmentErrorCode.APPOINTMENT_DESCRIPTION_REQUIRED);
+            throw new ExerciseMateException(ErrorCode.APPOINTMENT_DESCRIPTION_REQUIRED);
         }
 
         if (description.length() < 5 || description.length() > 500) {
-            throw new AppointmentException(AppointmentErrorCode.APPOINTMENT_DESCRIPTION_LENGTH_INVALID);
+            throw new ExerciseMateException(ErrorCode.APPOINTMENT_DESCRIPTION_LENGTH_INVALID);
         }
 
     }
 
     public void updateAppointment(User user, UpdateAppointmentRequestDto dto) {
         if(!user.equals(creator)) {
-            throw new AppointmentException(AppointmentErrorCode.APPOINTMENT_MODIFY_CREATOR_ONLY);
+            throw new ExerciseMateException(ErrorCode.APPOINTMENT_MODIFY_CREATOR_ONLY);
         }
 
         this.title = dto.title();
