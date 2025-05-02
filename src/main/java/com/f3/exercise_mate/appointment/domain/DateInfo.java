@@ -1,7 +1,7 @@
 package com.f3.exercise_mate.appointment.domain;
 
-import com.f3.exercise_mate.appointment.application.exception.AppointmentErrorCode;
-import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
+import com.f3.exercise_mate.common.exception.ErrorCode;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -27,15 +27,15 @@ public class DateInfo {
 
     private void checkDate(LocalDate date, LocalTime startTime, LocalTime endTime) {
         if(date == null || startTime == null || endTime == null) {
-            throw new AppointmentException(AppointmentErrorCode.APPOINTMENT_DATE_REQUIRED);
+            throw new ExerciseMateException(ErrorCode.APPOINTMENT_DATE_REQUIRED);
         }
 
         if(date.isBefore(LocalDate.now())) {
-            throw new AppointmentException(AppointmentErrorCode.APPOINTMENT_DATE_PAST_INVALID);
+            throw new ExerciseMateException(ErrorCode.APPOINTMENT_DATE_PAST_INVALID);
         }
 
         if(startTime.isAfter(endTime) || startTime.equals(endTime)) {
-            throw new AppointmentException(AppointmentErrorCode.APPOINTMENT_TIME_INVALID);
+            throw new ExerciseMateException(ErrorCode.APPOINTMENT_TIME_INVALID);
         }
     }
 }

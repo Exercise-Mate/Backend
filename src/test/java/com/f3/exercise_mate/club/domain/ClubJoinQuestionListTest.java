@@ -1,7 +1,5 @@
 package com.f3.exercise_mate.club.domain;
 
-import com.f3.exercise_mate.club.exception.ClubQuestionErrorCode;
-import com.f3.exercise_mate.club.exception.ClubQuestionException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

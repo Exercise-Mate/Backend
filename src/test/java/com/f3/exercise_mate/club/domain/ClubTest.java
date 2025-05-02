@@ -1,8 +1,8 @@
 package com.f3.exercise_mate.club.domain;
 
-import com.f3.exercise_mate.club.exception.ClubErrorCode;
-import com.f3.exercise_mate.club.exception.ClubException;
 import com.f3.exercise_mate.common.entity.SportAbility;
+import com.f3.exercise_mate.common.exception.ErrorCode;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ public class ClubTest {
 
     @DisplayName("클럽 생성 시 클럽명이 없으면 예외가 발생한다.")
     @Test
-    void createClubExceptionNameMissing() {
+    void createExerciseMateExceptionNameMissing() {
         // given
         Club invalidClub = Club.builder()
                 .sportType("클라이밍")
@@ -25,13 +25,13 @@ public class ClubTest {
 
         // when & then
         assertThatThrownBy(() -> Club.create(invalidClub))
-                .isInstanceOf(ClubException.class)
-                .hasMessageContaining(ClubErrorCode.CLUB_CREATE_NAME_NOT_FOUND.getErrorMessage());
+                .isInstanceOf(ExerciseMateException.class)
+                .hasMessageContaining(ErrorCode.CLUB_CREATE_NAME_NOT_FOUND.getErrorMessage());
     }
 
     @DisplayName("클럽 생성 시 운동 종목이 없으면 예외가 발생한다.")
     @Test
-    void createClubExceptionSportTypeMissing() {
+    void createExerciseMateExceptionSportTypeMissing() {
         // given
         Club invalidClub = Club.builder()
                 .name("DM 크루")
@@ -43,13 +43,13 @@ public class ClubTest {
 
         // when & then
         assertThatThrownBy(() -> Club.create(invalidClub))
-                .isInstanceOf(ClubException.class)
-                .hasMessageContaining(ClubErrorCode.CLUB_CREATE_SPORT_TYPE_NOT_FOUND.getErrorMessage());
+                .isInstanceOf(ExerciseMateException.class)
+                .hasMessageContaining(ErrorCode.CLUB_CREATE_SPORT_TYPE_NOT_FOUND.getErrorMessage());
     }
 
     @DisplayName("클럽 생성 시 주 활동 지역이 없으면 예외가 발생한다.")
     @Test
-    void createClubExceptionMainAreaMissing() {
+    void createExerciseMateExceptionMainAreaMissing() {
         // given
         Club invalidClub = Club.builder()
                 .name("DM 크루")
@@ -61,13 +61,13 @@ public class ClubTest {
 
         // when & then
         assertThatThrownBy(() -> Club.create(invalidClub))
-                .isInstanceOf(ClubException.class)
-                .hasMessageContaining(ClubErrorCode.CLUB_CREATE_MAIN_AREA_NOT_FOUND.getErrorMessage());
+                .isInstanceOf(ExerciseMateException.class)
+                .hasMessageContaining(ErrorCode.CLUB_CREATE_MAIN_AREA_NOT_FOUND.getErrorMessage());
     }
 
     @DisplayName("클럽 생성 시 운동 실력 최소값이 없으면 예외가 발생한다.")
     @Test
-    void createClubExceptionSportAbilityMinMissing() {
+    void createExerciseMateExceptionSportAbilityMinMissing() {
         // given
         Club invalidClub = Club.builder()
                 .name("DM 크루")
@@ -79,13 +79,13 @@ public class ClubTest {
 
         // when & then
         assertThatThrownBy(() -> Club.create(invalidClub))
-                .isInstanceOf(ClubException.class)
-                .hasMessageContaining(ClubErrorCode.CLUB_CREATE_SPORT_ABILITY_MIN_NOT_FOUND.getErrorMessage());
+                .isInstanceOf(ExerciseMateException.class)
+                .hasMessageContaining(ErrorCode.CLUB_CREATE_SPORT_ABILITY_MIN_NOT_FOUND.getErrorMessage());
     }
 
     @DisplayName("클럽 생성 시 운동 실력 최대값이 없으면 예외가 발생한다.")
     @Test
-    void createClubExceptionSportAbilityMaxMissing() {
+    void createExerciseMateExceptionSportAbilityMaxMissing() {
         // given
         Club invalidClub = Club.builder()
                 .name("DM 크루")
@@ -97,13 +97,13 @@ public class ClubTest {
 
         // when & then
         assertThatThrownBy(() -> Club.create(invalidClub))
-                .isInstanceOf(ClubException.class)
-                .hasMessageContaining(ClubErrorCode.CLUB_CREATE_SPORT_ABILITY_MAX_NOT_FOUND.getErrorMessage());
+                .isInstanceOf(ExerciseMateException.class)
+                .hasMessageContaining(ErrorCode.CLUB_CREATE_SPORT_ABILITY_MAX_NOT_FOUND.getErrorMessage());
     }
 
     @DisplayName("클럽 생성 시 클럽 소개가 없으면 예외가 발생한다.")
     @Test
-    void createClubExceptionDescriptionMissing() {
+    void createExerciseMateExceptionDescriptionMissing() {
         // given
         Club invalidClub = Club.builder()
                 .name("DM 크루")
@@ -115,8 +115,8 @@ public class ClubTest {
 
         // when & then
         assertThatThrownBy(() -> Club.create(invalidClub))
-                .isInstanceOf(ClubException.class)
-                .hasMessageContaining(ClubErrorCode.CLUB_CREATE_DESCRIPTION_NOT_FOUND.getErrorMessage());
+                .isInstanceOf(ExerciseMateException.class)
+                .hasMessageContaining(ErrorCode.CLUB_CREATE_DESCRIPTION_NOT_FOUND.getErrorMessage());
     }
 
     @DisplayName("클럽 생성 시 모든 필수값이 제공되면 클럽이 정상적으로 생성된다.")

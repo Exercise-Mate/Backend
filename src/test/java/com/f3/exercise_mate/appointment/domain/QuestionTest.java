@@ -1,6 +1,6 @@
 package com.f3.exercise_mate.appointment.domain;
 
-import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import com.f3.exercise_mate.user.domain.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -48,7 +48,7 @@ class QuestionTest {
         String text = "a".repeat(201);
 
         // when, then
-        assertThrows(AppointmentException.class, () -> new Question(1L, appointment, text));
+        assertThrows(ExerciseMateException.class, () -> new Question(1L, appointment, text));
     }
 
     @ParameterizedTest
@@ -59,7 +59,7 @@ class QuestionTest {
         String text = korean.repeat(501);
 
         // when, then
-        assertThrows(AppointmentException.class, () -> new Question(1L, appointment, text));
+        assertThrows(ExerciseMateException.class, () -> new Question(1L, appointment, text));
     }
 
     @Test
@@ -69,7 +69,7 @@ class QuestionTest {
         String text = "a".repeat(4);
 
         // when, then
-        assertThrows(AppointmentException.class, () -> new Question(1L, appointment, text));
+        assertThrows(ExerciseMateException.class, () -> new Question(1L, appointment, text));
     }
 
     @ParameterizedTest
@@ -77,7 +77,7 @@ class QuestionTest {
     @DisplayName("질문의 값이 비어있으면 에러발생")
     void questionNullOrEmpty_questionCreate_throwError(String value) {
         // when, then
-        assertThrows(AppointmentException.class, () -> new Question(1L, appointment, value));
+        assertThrows(ExerciseMateException.class, () -> new Question(1L, appointment, value));
     }
 
     @Test
@@ -105,7 +105,7 @@ class QuestionTest {
         String updatedText = "a".repeat(201);
 
         // then
-        assertThrows(AppointmentException.class, () -> new Question(1L, appointment, updatedText));
+        assertThrows(ExerciseMateException.class, () -> new Question(1L, appointment, updatedText));
     }
 
     @ParameterizedTest
@@ -119,7 +119,7 @@ class QuestionTest {
         String updatedText = korean.repeat(501);
 
         // then
-        assertThrows(AppointmentException.class, () -> new Question(1L, appointment, updatedText));
+        assertThrows(ExerciseMateException.class, () -> new Question(1L, appointment, updatedText));
     }
 
     @Test
@@ -132,7 +132,7 @@ class QuestionTest {
         String updatedText = "a".repeat(4);
 
         // then
-        assertThrows(AppointmentException.class, () -> new Question(1L, appointment, updatedText));
+        assertThrows(ExerciseMateException.class, () -> new Question(1L, appointment, updatedText));
     }
 
     @ParameterizedTest
@@ -144,6 +144,6 @@ class QuestionTest {
         Question question = new Question(1L, appointment, text);
 
         // when, then
-        assertThrows(AppointmentException.class, () -> question.updateQuestion(value));
+        assertThrows(ExerciseMateException.class, () -> question.updateQuestion(value));
     }
 }

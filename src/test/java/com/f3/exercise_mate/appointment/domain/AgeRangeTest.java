@@ -1,11 +1,10 @@
 package com.f3.exercise_mate.appointment.domain;
 
-import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.springframework.beans.factory.annotation.Value;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,7 +36,7 @@ class AgeRangeTest {
         int max = 20;
 
         // when, then
-        assertThrows(AppointmentException.class, () -> new AgeRange(min, max));
+        assertThrows(ExerciseMateException.class, () -> new AgeRange(min, max));
     }
 
     @Test
@@ -48,8 +47,8 @@ class AgeRangeTest {
         int max = -1;
 
         // when, then
-        assertThrows(AppointmentException.class, () -> new AgeRange(min, 0));
-        assertThrows(AppointmentException.class, () -> new AgeRange(0, max));
+        assertThrows(ExerciseMateException.class, () -> new AgeRange(min, 0));
+        assertThrows(ExerciseMateException.class, () -> new AgeRange(0, max));
     }
 
     @Test
@@ -60,7 +59,7 @@ class AgeRangeTest {
         int max = 101;
 
         // when, then
-        assertThrows(AppointmentException.class, () -> new AgeRange(min, max));
+        assertThrows(ExerciseMateException.class, () -> new AgeRange(min, max));
     }
 
     @Test
