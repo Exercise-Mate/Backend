@@ -1,8 +1,8 @@
 package com.f3.exercise_mate.appointment.domain;
 
 
-import com.f3.exercise_mate.appointment.application.exception.AppointmentErrorCode;
-import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
+import com.f3.exercise_mate.common.exception.ErrorCode;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +27,15 @@ public class Participants {
 
     public void add(Participant user) {
         if(users.size() >= MAX_PARTICIPANTS) {
-            throw new AppointmentException(AppointmentErrorCode.PARTICIPANT_OVERFLOW);
+            throw new ExerciseMateException(ErrorCode.PARTICIPANT_OVERFLOW);
         }
 
         if(user == null) {
-            throw new AppointmentException(AppointmentErrorCode.PARTICIPANT_NULL);
+            throw new ExerciseMateException(ErrorCode.PARTICIPANT_NULL);
         }
 
         if(users.contains(user)) {
-            throw new AppointmentException(AppointmentErrorCode.PARTICIPANT_DUPLICATE);
+            throw new ExerciseMateException(ErrorCode.PARTICIPANT_DUPLICATE);
         }
 
         users.add(user);
@@ -43,11 +43,11 @@ public class Participants {
 
     public void remove(Participant user) {
         if(user == null) {
-            throw new AppointmentException(AppointmentErrorCode.PARTICIPANT_NULL);
+            throw new ExerciseMateException(ErrorCode.PARTICIPANT_NULL);
         }
 
         if(!users.contains(user)) {
-            throw new AppointmentException(AppointmentErrorCode.PARTICIPANT_NOT_FOUND);
+            throw new ExerciseMateException(ErrorCode.PARTICIPANT_NOT_FOUND);
         }
 
         users.remove(user);

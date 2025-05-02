@@ -1,7 +1,7 @@
 package com.f3.exercise_mate.appointment.domain;
 
-import com.f3.exercise_mate.appointment.application.exception.AppointmentErrorCode;
-import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
+import com.f3.exercise_mate.common.exception.ErrorCode;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -24,7 +24,7 @@ public class LevelRange {
     private void checkLevel(Level minLevel, Level maxLevel) {
         if (minLevel != null && maxLevel != null) {
             if (minLevel.ordinal() > maxLevel.ordinal()) {
-                throw new AppointmentException(AppointmentErrorCode.LEVEL_RANGE_INVALID);
+                throw new ExerciseMateException(ErrorCode.LEVEL_RANGE_INVALID);
             }
         }
     }

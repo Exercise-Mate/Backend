@@ -2,9 +2,9 @@ package com.f3.exercise_mate.chat.service;
 
 import com.f3.exercise_mate.chat.domain.ChatRoom;
 import com.f3.exercise_mate.chat.dto.CreateRoomReqDTO;
-import com.f3.exercise_mate.chat.exception.ChatRoomErrorCode;
-import com.f3.exercise_mate.chat.exception.ChatRoomException;
 import com.f3.exercise_mate.chat.repository.ChatRoomRepository;
+import com.f3.exercise_mate.common.exception.ErrorCode;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class ChatRoomService {
     public ChatRoom findById(Long id) {
         ChatRoom foundRoom = chatRoomRepository.findById(id);
         if (foundRoom == null) {
-            throw new ChatRoomException(ChatRoomErrorCode.CHATROOM_NOT_FOUND);
+            throw new ExerciseMateException(ErrorCode.CHATROOM_NOT_FOUND);
         }
         return foundRoom;
     }

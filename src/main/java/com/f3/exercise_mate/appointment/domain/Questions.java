@@ -1,8 +1,7 @@
 package com.f3.exercise_mate.appointment.domain;
 
-import com.f3.exercise_mate.appointment.application.exception.AppointmentErrorCode;
-import com.f3.exercise_mate.appointment.application.exception.AppointmentException;
-import lombok.Getter;
+import com.f3.exercise_mate.common.exception.ErrorCode;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,7 +21,7 @@ public class Questions {
         }
 
         if (questions.contains(null)) {
-            throw new AppointmentException(AppointmentErrorCode.QUESTION_LIST_NULL);
+            throw new ExerciseMateException(ErrorCode.QUESTION_LIST_NULL);
         }
 
         this.questions = new ArrayList<>(questions);
@@ -34,7 +33,7 @@ public class Questions {
 
     public void add(Question question) {
         if(question == null) {
-            throw new AppointmentException(AppointmentErrorCode.QUESTION_NULL);
+            throw new ExerciseMateException(ErrorCode.QUESTION_NULL);
         }
 
         questions.add(question);

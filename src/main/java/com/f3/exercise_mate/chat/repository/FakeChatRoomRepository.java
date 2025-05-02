@@ -1,8 +1,8 @@
 package com.f3.exercise_mate.chat.repository;
 
 import com.f3.exercise_mate.chat.domain.ChatRoom;
-import com.f3.exercise_mate.chat.exception.ChatRoomErrorCode;
-import com.f3.exercise_mate.chat.exception.ChatRoomException;
+import com.f3.exercise_mate.common.exception.ErrorCode;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +24,7 @@ public class FakeChatRoomRepository implements ChatRoomRepository {
         ChatRoom room = ChatRoom.create(chatRoomId++, memberId, name);
 
         if (room.getId() != chatRoomId - 1) {
-            throw new ChatRoomException(ChatRoomErrorCode.CHATROOM_CREATE_ID_NOT_MATCH);
+            throw new ExerciseMateException(ErrorCode.CHATROOM_CREATE_ID_NOT_MATCH);
         }
 
         ChatRoomMap.put(room.getId(), room);

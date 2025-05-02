@@ -1,7 +1,7 @@
 package com.f3.exercise_mate.club.domain;
 
-import com.f3.exercise_mate.club.exception.ClubQuestionErrorCode;
-import com.f3.exercise_mate.club.exception.ClubQuestionException;
+import com.f3.exercise_mate.common.exception.ErrorCode;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -26,10 +26,10 @@ public class ClubJoinQuestion {
 
     public void validate(String question){
         if (question.length() < MIN_LENGTH) {
-            throw new ClubQuestionException(ClubQuestionErrorCode.CLUB_CREATE_JOIN_QUESTION_TOO_SHORT);
+            throw new ExerciseMateException(ErrorCode.CLUB_CREATE_JOIN_QUESTION_TOO_SHORT);
         }
         if (question.length() > MAX_LENGTH) {
-            throw new ClubQuestionException(ClubQuestionErrorCode.CLUB_CREATE_JOIN_QUESTION_TOO_LONG);
+            throw new ExerciseMateException(ErrorCode.CLUB_CREATE_JOIN_QUESTION_TOO_LONG);
         }
     }
 

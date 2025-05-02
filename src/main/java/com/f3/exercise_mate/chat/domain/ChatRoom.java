@@ -1,7 +1,7 @@
 package com.f3.exercise_mate.chat.domain;
 
-import com.f3.exercise_mate.chat.exception.ChatRoomErrorCode;
-import com.f3.exercise_mate.chat.exception.ChatRoomException;
+import com.f3.exercise_mate.common.exception.ErrorCode;
+import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,10 +31,10 @@ public class ChatRoom {
     // 유효성 검증
     private void validate() {
         if (memberId == null) {
-            throw new ChatRoomException(ChatRoomErrorCode.CHATROOM_CREATE_MEMBER_ID_NOT_FOUND);
+            throw new ExerciseMateException(ErrorCode.CHATROOM_CREATE_MEMBER_ID_NOT_FOUND);
         }
         if (name == null || name.trim().isEmpty()) {
-            throw new ChatRoomException(ChatRoomErrorCode.CHATROOM_CREATE_NAME_NOT_FOUND);
+            throw new ExerciseMateException(ErrorCode.CHATROOM_CREATE_NAME_NOT_FOUND);
         }
     }
 }
