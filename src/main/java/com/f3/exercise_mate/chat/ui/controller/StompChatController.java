@@ -1,4 +1,4 @@
-package com.f3.exercise_mate.chat.controller;
+package com.f3.exercise_mate.chat.ui.controller;
 
 import com.f3.exercise_mate.chat.domain.ChatMessage;
 import lombok.RequiredArgsConstructor;

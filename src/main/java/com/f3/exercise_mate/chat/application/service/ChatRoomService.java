@@ -1,8 +1,8 @@
-package com.f3.exercise_mate.chat.service;
+package com.f3.exercise_mate.chat.application.service;
 
 import com.f3.exercise_mate.chat.domain.ChatRoom;
-import com.f3.exercise_mate.chat.dto.CreateRoomReqDTO;
-import com.f3.exercise_mate.chat.repository.ChatRoomRepository;
+import com.f3.exercise_mate.chat.application.dto.CreateRoomReqDTO;
+import com.f3.exercise_mate.chat.application.interfaces.ChatRoomRepository;
 import com.f3.exercise_mate.common.exception.ErrorCode;
 import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import lombok.RequiredArgsConstructor;
