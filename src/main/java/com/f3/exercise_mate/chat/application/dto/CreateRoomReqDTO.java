@@ -1,4 +1,4 @@
-package com.f3.exercise_mate.chat.dto;
+package com.f3.exercise_mate.chat.application.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

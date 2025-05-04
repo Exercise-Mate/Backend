@@ -1,8 +1,8 @@
-package com.f3.exercise_mate.chat.controller;
+package com.f3.exercise_mate.chat.ui.controller;
 
-import com.f3.exercise_mate.chat.dto.CreateRoomReqDTO;
+import com.f3.exercise_mate.chat.application.dto.CreateRoomReqDTO;
 import com.f3.exercise_mate.chat.domain.ChatRoom;
-import com.f3.exercise_mate.chat.service.ChatRoomService;
+import com.f3.exercise_mate.chat.application.service.ChatRoomService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
