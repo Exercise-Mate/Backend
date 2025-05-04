@@ -1,6 +1,8 @@
 package com.f3.exercise_mate.chat.ui.controller;
 
-import com.f3.exercise_mate.chat.domain.ChatMessage;
+import com.f3.exercise_mate.chat.application.dto.ChatMessageRequestDto;
+import com.f3.exercise_mate.chat.application.dto.EnterChatRoomRequestDTO;
+import com.f3.exercise_mate.chat.ui.dto.ChatMessageResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -17,15 +19,19 @@ public class StompChatController {
     // stompConfig에서 설정한 setApplicationDestinationPrefixes의 경로와 @MessageMapping 경로가 병합됨
     // /app/chat/enter
     @MessageMapping(value = "/chat/enter")
-    public void enter(ChatMessage message) {
-        message.setMessage(message.getWriter() + "님이 채팅방에 참여하였습니다.");
-        template.convertAndSend("/topic/chat/room/" + message.getChatRoomId(), message);
+    public void enter(EnterChatRoomRequestDTO enterChatRoomRequestDTO) {
+        String message = "[회원 id: " + enterChatRoomRequestDTO.memberId() + "] 님이 채팅방에 참여하였습니다.";
+        ChatMessageResponseDTO chatMessageResponseDTO = new ChatMessageResponseDTO(enterChatRoomRequestDTO.memberId(), message, enterChatRoomRequestDTO.sendAt());
+
+        template.convertAndSend("/topic/chat/room/" + enterChatRoomRequestDTO.chatRoomId(), chatMessageResponseDTO);
     }
 
-    // /app/chat/message
+    // /app/chat/chatMessageReqDto
     @MessageMapping(value = "/chat/message")
-    public void message(ChatMessage message) {
-        template.convertAndSend("/topic/chat/room/" + message.getChatRoomId(), message);
-        log.info(message.getMessage());
+    public void chatMessageReqDto(ChatMessageRequestDto chatMessageRequestDto) {
+        ChatMessageResponseDTO chatMessageResponseDTO = new ChatMessageResponseDTO(chatMessageRequestDto.memberId(), chatMessageRequestDto.message(), chatMessageRequestDto.sendAt());
+
+        template.convertAndSend("/topic/chat/room/" + chatMessageRequestDto.chatRoomId(), chatMessageResponseDTO);
+        log.info(chatMessageRequestDto.message());
     }
 }

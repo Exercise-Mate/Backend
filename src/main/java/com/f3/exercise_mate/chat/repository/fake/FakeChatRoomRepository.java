@@ -1,4 +1,4 @@
-package com.f3.exercise_mate.chat.repository;
+package com.f3.exercise_mate.chat.repository.fake;
 
 import com.f3.exercise_mate.chat.application.interfaces.ChatRoomRepository;
 import com.f3.exercise_mate.chat.domain.ChatRoom;
