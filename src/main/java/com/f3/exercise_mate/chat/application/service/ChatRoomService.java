@@ -1,7 +1,7 @@
 package com.f3.exercise_mate.chat.application.service;
 
 import com.f3.exercise_mate.chat.domain.ChatRoom;
-import com.f3.exercise_mate.chat.application.dto.CreateRoomReqDTO;
+import com.f3.exercise_mate.chat.application.dto.CreateChatRoomRequestDTO;
 import com.f3.exercise_mate.chat.application.interfaces.ChatRoomRepository;
 import com.f3.exercise_mate.common.exception.ErrorCode;
 import com.f3.exercise_mate.common.exception.ExerciseMateException;
@@ -20,8 +20,8 @@ public class ChatRoomService {
 
     private final ChatRoomRepository chatRoomRepository;
 
-    public Long create(CreateRoomReqDTO createRoomReqDTO) {
-        return chatRoomRepository.save(createRoomReqDTO.getMemberId(), createRoomReqDTO.getChatRoomName());
+    public Long create(CreateChatRoomRequestDTO createChatRoomRequestDTO) {
+        return chatRoomRepository.save(createChatRoomRequestDTO.memberId(), createChatRoomRequestDTO.chatRoomName());
     }
 
     // (임시) 채팅방 목록에서 보여야할 정보들을 추가 구성해야함

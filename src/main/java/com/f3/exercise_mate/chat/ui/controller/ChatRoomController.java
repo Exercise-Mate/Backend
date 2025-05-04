@@ -1,6 +1,6 @@
 package com.f3.exercise_mate.chat.ui.controller;
 
-import com.f3.exercise_mate.chat.application.dto.CreateRoomReqDTO;
+import com.f3.exercise_mate.chat.application.dto.CreateChatRoomRequestDTO;
 import com.f3.exercise_mate.chat.domain.ChatRoom;
 import com.f3.exercise_mate.chat.application.service.ChatRoomService;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +20,10 @@ public class ChatRoomController {
 
     // 채팅방 개설
     @PostMapping(value = "/chat-room")
-    public ResponseEntity<Long> create(@RequestBody CreateRoomReqDTO createRoomReqDTO) {
-        log.info("# Create Chat Room , name: " + createRoomReqDTO.getChatRoomName());
+    public ResponseEntity<Long> create(@RequestBody CreateChatRoomRequestDTO createChatRoomRequestDTO) {
+        log.info("# Create Chat Room , name: " + createChatRoomRequestDTO.chatRoomName());
 
-        Long createdRoomId = chatRoomService.create(createRoomReqDTO);
+        Long createdRoomId = chatRoomService.create(createChatRoomRequestDTO);
         return ResponseEntity.ok(createdRoomId);
     }
 
