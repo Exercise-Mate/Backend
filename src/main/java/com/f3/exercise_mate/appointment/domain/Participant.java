@@ -14,6 +14,10 @@ public class Participant {
     private User user;
     private Appointment appointment;
 
+    public Participant(User user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

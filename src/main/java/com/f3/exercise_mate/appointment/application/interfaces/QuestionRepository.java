@@ -9,4 +9,7 @@ public interface QuestionRepository {
     Question save(Question question);
     Question findById(Long id);
     List<Question> saveAll(List<Question> questions);
+    List<Question> findByAppointmentId(Long appointmentId);
+    void delete(Question question);
+
 }

@@ -61,4 +61,8 @@ public class Participants {
         return users;
     }
 
+    public int getMaxParticipants() {
+        return MAX_PARTICIPANTS;
+    }
+
 }

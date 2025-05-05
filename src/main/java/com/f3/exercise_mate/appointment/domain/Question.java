@@ -17,6 +17,11 @@ public class Question {
         this.content = content;
     }
 
+    public Question(Long id, String content) {
+        this.id = id;
+        this.content = content;
+    }
+
     public Question(Long id, Appointment appointment, String content) {
         checkQuestion(content);
         this.id = id;
