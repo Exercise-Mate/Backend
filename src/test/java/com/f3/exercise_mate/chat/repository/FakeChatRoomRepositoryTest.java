@@ -1,7 +1,6 @@
 package com.f3.exercise_mate.chat.repository;
 
 import com.f3.exercise_mate.chat.domain.ChatRoom;
-import com.f3.exercise_mate.chat.repository.fake.FakeChatRoomRepository;
 import com.f3.exercise_mate.common.exception.ErrorCode;
 import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import org.junit.jupiter.api.BeforeEach;
