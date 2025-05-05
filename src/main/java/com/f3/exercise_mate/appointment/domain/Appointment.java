@@ -61,12 +61,16 @@ public class Appointment {
         return appointment;
     }
 
+    public int maxParticipant() {
+        return participants.getMaxParticipants();
+    }
+
     public int participantsCount() {
         return participants.size();
     }
 
     public boolean isAvailableAge(int age) {
-        return range.isAvaliableAge(age);
+        return range.isAvailableAge(age);
     }
 
     public void join(User user) {

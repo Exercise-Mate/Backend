@@ -33,6 +33,8 @@ public class AppointmentEntity extends TimeBaseEntity {
     @Embedded
     private DateInfo dateInfo;
 
+    private Integer maxParticipant;
+
     @Enumerated(EnumType.STRING)
     private Sport sport;
 
@@ -53,6 +55,7 @@ public class AppointmentEntity extends TimeBaseEntity {
                 appointment.getDescription(),
                 appointment.getLocation(),
                 appointment.getDateInfo(),
+                appointment.maxParticipant(),
                 appointment.getSports(),
                 appointment.getLevel(),
                 appointment.getRange(),

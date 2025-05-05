@@ -4,32 +4,42 @@ import com.f3.exercise_mate.appointment.application.dto.CreateAppointmentRequest
 import com.f3.exercise_mate.appointment.application.dto.JoinAppointmentRequestDto;
 import com.f3.exercise_mate.appointment.application.dto.UpdateAppointmentRequestDto;
 import com.f3.exercise_mate.appointment.application.interfaces.AppointmentRepository;
+import com.f3.exercise_mate.appointment.application.interfaces.ParticipantsRepository;
 import com.f3.exercise_mate.appointment.application.interfaces.QuestionRepository;
 import com.f3.exercise_mate.appointment.domain.Appointment;
+import com.f3.exercise_mate.appointment.domain.Participant;
+import com.f3.exercise_mate.appointment.domain.Participants;
 import com.f3.exercise_mate.appointment.domain.Question;
+import com.f3.exercise_mate.appointment.repository.entity.ParticipantEntity;
 import com.f3.exercise_mate.user.domain.User;
 import com.f3.exercise_mate.user.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
     private final QuestionRepository questionRepository;
+    private final ParticipantsRepository participantsRepository;
 
     private final UserService userService;
 
-    public AppointmentService(AppointmentRepository appointmentRepository, QuestionRepository questionRepository, UserService userService) {
-        this.appointmentRepository = appointmentRepository;
-        this.questionRepository = questionRepository;
-        this.userService = userService;
-    }
 
+    @Transactional
     public Appointment createAppointment(CreateAppointmentRequestDto dto) {
         User user = userService.getUser(dto.creatorId());
-        Appointment appointment = Appointment.create(null, dto.title(), user, dto.description(), dto.sport(), dto.location(), dto.dateInfo(), dto.maxParticipant());
+        Appointment appointment = Appointment.create(null, dto.title(), user, dto.description(), dto.sport(), dto.location(), dto.dateInfo(), dto.maxParticipant(), dto.range());
         Appointment savedAppointment = appointmentRepository.save(appointment);
 
         dto.questions().forEach(request -> questionRepository.save(new Question(null, savedAppointment, request.content())));
+
+        Participant participant = new Participant(user, savedAppointment);
+        participantsRepository.save(participant);
 
         return savedAppointment;
     }
@@ -38,11 +48,13 @@ public class AppointmentService {
         return appointmentRepository.findById(id);
     }
 
+    @Transactional
     public Appointment updateAppointment(Long appointmentId, UpdateAppointmentRequestDto dto) {
         Appointment appointment = appointmentRepository.findById(appointmentId);
         User user = userService.getUser(dto.creatorId());
 
         appointment.updateAppointment(user, dto);
+
         return appointmentRepository.save(appointment);
     }
 

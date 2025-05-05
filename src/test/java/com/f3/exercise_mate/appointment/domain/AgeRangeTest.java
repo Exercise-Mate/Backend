@@ -22,10 +22,10 @@ class AgeRangeTest {
         AgeRange unrestricted = AgeRange.unrestricted();
 
         // then
-        assertEquals(min, range.getMinAge());
-        assertEquals(max, range.getMaxAge());
-        assertEquals(0, unrestricted.getMinAge());
-        assertEquals(100, unrestricted.getMaxAge());
+        assertEquals(min, range.getMin());
+        assertEquals(max, range.getMax());
+        assertEquals(0, unrestricted.getMin());
+        assertEquals(100, unrestricted.getMax());
     }
 
     @Test
@@ -69,8 +69,8 @@ class AgeRangeTest {
         AgeRange range = new AgeRange(20, 30);
 
         // when, then
-        assertTrue(range.isAvaliableAge(20));
-        assertTrue(range.isAvaliableAge(30));
+        assertTrue(range.isAvailableAge(20));
+        assertTrue(range.isAvailableAge(30));
     }
 
     @ParameterizedTest
@@ -81,8 +81,8 @@ class AgeRangeTest {
         AgeRange range = new AgeRange(20, 30);
 
         // when, then
-        assertFalse(range.isAvaliableAge(31));
-        assertFalse(range.isAvaliableAge(19));
+        assertFalse(range.isAvailableAge(31));
+        assertFalse(range.isAvailableAge(19));
     }
 
     @ParameterizedTest
@@ -93,7 +93,7 @@ class AgeRangeTest {
         AgeRange range = new AgeRange(null, null);
 
         // when, then
-        assertTrue(range.isAvaliableAge(value));
+        assertTrue(range.isAvailableAge(value));
     }
 
     @ParameterizedTest
@@ -104,7 +104,7 @@ class AgeRangeTest {
         AgeRange range = new AgeRange(null, 20);
 
         // when, then
-        assertTrue(range.isAvaliableAge(value));
+        assertTrue(range.isAvailableAge(value));
     }
 
     @ParameterizedTest
@@ -115,7 +115,7 @@ class AgeRangeTest {
         AgeRange range = new AgeRange(null, 20);
 
         // when, then
-        assertFalse(range.isAvaliableAge(value));
+        assertFalse(range.isAvailableAge(value));
     }
 
     @ParameterizedTest
@@ -126,7 +126,7 @@ class AgeRangeTest {
         AgeRange range = new AgeRange(20, null);
 
         // when, then
-        assertTrue(range.isAvaliableAge(value));
+        assertTrue(range.isAvailableAge(value));
     }
 
     @ParameterizedTest
@@ -137,7 +137,7 @@ class AgeRangeTest {
         AgeRange range = new AgeRange(20, null);
 
         // when, then
-        assertFalse(range.isAvaliableAge(value));
+        assertFalse(range.isAvailableAge(value));
     }
 
 }
