@@ -1,8 +1,8 @@
-package com.f3.exercise_mate.chat.ui.controller;
+package com.f3.exercise_mate.chat.controller;
 
-import com.f3.exercise_mate.chat.application.dto.CreateChatRoomRequestDTO;
+import com.f3.exercise_mate.chat.dto.CreateRoomReqDTO;
 import com.f3.exercise_mate.chat.domain.ChatRoom;
-import com.f3.exercise_mate.chat.application.service.ChatRoomService;
+import com.f3.exercise_mate.chat.service.ChatRoomService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +20,10 @@ public class ChatRoomController {
 
     // 채팅방 개설
     @PostMapping(value = "/chat-room")
-    public ResponseEntity<Long> create(@RequestBody CreateChatRoomRequestDTO createChatRoomRequestDTO) {
-        log.info("# Create Chat Room , name: " + createChatRoomRequestDTO.chatRoomName());
+    public ResponseEntity<Long> create(@RequestBody CreateRoomReqDTO createRoomReqDTO) {
+        log.info("# Create Chat Room , name: " + createRoomReqDTO.getChatRoomName());
 
-        Long createdRoomId = chatRoomService.create(createChatRoomRequestDTO);
+        Long createdRoomId = chatRoomService.create(createRoomReqDTO);
         return ResponseEntity.ok(createdRoomId);
     }
 
