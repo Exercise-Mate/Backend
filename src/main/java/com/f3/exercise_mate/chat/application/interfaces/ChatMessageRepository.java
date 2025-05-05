@@ -8,5 +8,5 @@ public interface ChatMessageRepository {
 
     Long save(Long memberId, Long chatRoomId, String message, String sendAt);
 
-    List<ChatMessage> findRecent30ByMemberAndChatRoom(Long memberId, Long chatRoomId);
+    List<ChatMessage> findRecent30ByMemberAndChatRoomAfterParticipation(Long memberId, Long chatRoomId, String participatedAt);
 }
