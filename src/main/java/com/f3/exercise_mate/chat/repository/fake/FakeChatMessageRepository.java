@@ -19,8 +19,6 @@ public class FakeChatMessageRepository implements ChatMessageRepository {
     private Long chatMessageId = 1L;
     private final Map<Long, ChatMessage> chatMessageMap = new ConcurrentHashMap<>();
 
-    private final FakeChatParticipationRepository fakeChatParticipationRepository;
-
     @Override
     public Long save(Long memberId, Long chatRoomId, String message, String sendAt) {
         ChatMessage chatMessage = ChatMessage.create(chatMessageId++, memberId, chatRoomId, message, sendAt);
@@ -35,9 +33,7 @@ public class FakeChatMessageRepository implements ChatMessageRepository {
     }
 
     @Override
-    public List<ChatMessage> findRecent30ByMemberAndChatRoom(Long memberId, Long chatRoomId) {
-        String participatedAt = fakeChatParticipationRepository.findParticipatedAtByMemberAndChatRoom(memberId, chatRoomId);
-
+    public List<ChatMessage> findRecent30ByMemberAndChatRoomAfterParticipation(Long memberId, Long chatRoomId, String participatedAt) {
         List<ChatMessage> result = chatMessageMap.values().stream()
                 .filter(chatMessage -> chatMessage.getChatRoomId().equals(chatRoomId)
                         && LocalDateTime.parse(chatMessage.getSendAt()).isAfter(LocalDateTime.parse(participatedAt)))
