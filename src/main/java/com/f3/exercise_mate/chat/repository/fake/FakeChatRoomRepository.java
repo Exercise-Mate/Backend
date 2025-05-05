@@ -1,5 +1,6 @@
-package com.f3.exercise_mate.chat.repository;
+package com.f3.exercise_mate.chat.repository.fake;
 
+import com.f3.exercise_mate.chat.application.interfaces.ChatRoomRepository;
 import com.f3.exercise_mate.chat.domain.ChatRoom;
 import com.f3.exercise_mate.common.exception.ErrorCode;
 import com.f3.exercise_mate.common.exception.ExerciseMateException;
@@ -17,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class FakeChatRoomRepository implements ChatRoomRepository {
 
     private Long chatRoomId = 1L;
-    private final Map<Long, ChatRoom> ChatRoomMap = new ConcurrentHashMap<>();
+    private final Map<Long, ChatRoom> chatRoomMap = new ConcurrentHashMap<>();
 
     @Override
     public Long save(Long memberId, String name) {
@@ -27,14 +28,14 @@ public class FakeChatRoomRepository implements ChatRoomRepository {
             throw new ExerciseMateException(ErrorCode.CHATROOM_CREATE_ID_NOT_MATCH);
         }
 
-        ChatRoomMap.put(room.getId(), room);
+        chatRoomMap.put(room.getId(), room);
         return room.getId();
     }
 
     @Override
     public List<ChatRoom> findAll() {
         // 채팅방 생성 순서 최근 순으로 반환
-        List<ChatRoom> allRooms = new ArrayList<>(ChatRoomMap.values());
+        List<ChatRoom> allRooms = new ArrayList<>(chatRoomMap.values());
         Collections.reverse(allRooms);
 
         return allRooms;
@@ -42,7 +43,7 @@ public class FakeChatRoomRepository implements ChatRoomRepository {
 
     @Override
     public ChatRoom findById(Long id) {
-        ChatRoom foundRoom = ChatRoomMap.get(id);
+        ChatRoom foundRoom = chatRoomMap.get(id);
         return foundRoom;
     }
 
