@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-
-    private final UserService userService;
+//    bean 등록 에러로 임시 주석 처리
+//    private final UserService userService;
 
 //    @GetMapping
 //    public User getUser() {
