@@ -34,9 +34,18 @@ public class FakeChatParticipationRepository implements ChatParticipationReposit
     }
 
     @Override
-    public String findParticipatedAtByMemberAndChatRoom(Long memberId, Long chatRoomId) {
+    public ChatParticipation findOne(Long memberId, Long chatRoomId) {
         ChatParticipationKey targetKey = new ChatParticipationKey(memberId, chatRoomId);
         ChatParticipation findedChatParticipation = chatParticipationMap.get(targetKey);
+        return findedChatParticipation;
+    }
+
+    // 굳이 필요할까? 서비스단에서 findOne을 통해 참여시점을 알아낼 수 있는데?
+    // -> ChatParticipaion 정보는 필요하지 않고, participatedAt만 사용하는 경우가 많다면 유지하자.
+    // -> 유지한다면, findOne은 필요 없으므로 getParticipatedAt 내에 통합 vs 확장성을 위해 유지
+    @Override
+    public String getParticipatedAtByMemberAndChatRoom(Long memberId, Long chatRoomId) {
+        ChatParticipation findedChatParticipation = findOne(memberId, chatRoomId);
         return findedChatParticipation.getParticipatedAt();
     }
 }
