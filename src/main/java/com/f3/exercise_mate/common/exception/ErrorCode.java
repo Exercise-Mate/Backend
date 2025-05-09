@@ -42,9 +42,21 @@ public enum ErrorCode {
     CLUB_CREATE_SPORT_ABILITY_MIN_NOT_FOUND("C005", "운동 실력 최소는 필수입니다."),
     CLUB_CREATE_SPORT_ABILITY_MAX_NOT_FOUND("C006", "운동 실력 최대는 필수입니다."),
 
-    // ClubQuestion
+    // 📌 ClubQuestion
     CLUB_CREATE_JOIN_QUESTION_TOO_SHORT("CQ001", "질문은 최소 5자 이상이어야 합니다."),
     CLUB_CREATE_JOIN_QUESTION_TOO_LONG("CQ002", "질문은 최대 200자까지 입력 가능합니다."),
+
+    // 📌 ClubAnswer
+    CLUB_JOIN_ANSWER_REQUIRED("CA001", "답변은 필수입니다."),
+    CLUB_JOIN_ANSWER_TOO_SHORT("CA002", "답변은 최소 5자 이상이어야 합니다."),
+    CLUB_JOIN_ANSWER_TOO_LONG("CA003", "답변은 최대 200자까지 입력 가능합니다."),
+
+    // 📌 ClubMember
+    CLUB_MEMBER_ALREADY_PENDING("CM001", "가입 대기 중인 회원입니다. 이미 가입 신청을 했습니다."),
+    CLUB_MEMBER_ALREADY_EXISTS("CM002", "이미 이 클럽에 가입된 회원입니다."),
+    CLUB_JOIN_SPORT_ABILITY_NOT_IN_RANGE("CM003", "운동 능력이 클럽의 최소/최대 범위에 부합하지 않습니다."),
+    CLUB_JOIN_AGE_NOT_IN_RANGE("CM004", "나이 또는 성별이 클럽의 제한에 부합하지 않습니다."),
+    CLUB_MEMBER_NOT_FOUND("CM005", "해당 클럽에 가입된 회원을 찾을 수 없습니다."),
 
     // Chat
     CHATROOM_CREATE_MEMBER_ID_NOT_FOUND("CH001", "채팅방을 생성하는 회원의 ID값은 필수입니다."),
