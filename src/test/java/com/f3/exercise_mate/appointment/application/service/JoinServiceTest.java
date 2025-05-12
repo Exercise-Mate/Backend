@@ -4,6 +4,7 @@ import com.f3.exercise_mate.appointment.application.dto.CreateAppointmentRequest
 import com.f3.exercise_mate.appointment.application.dto.JoinAppointmentRequestDto;
 import com.f3.exercise_mate.appointment.application.dto.question.AnswerRequestDto;
 import com.f3.exercise_mate.appointment.application.dto.question.CreateQuestionRequestDto;
+import com.f3.exercise_mate.appointment.repository.FakeParticipantRepository;
 import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import com.f3.exercise_mate.appointment.domain.*;
 import com.f3.exercise_mate.appointment.repository.FakeAppointmentRepository;
@@ -35,6 +36,8 @@ class JoinServiceTest {
     private FakeQuestionRepository fakeQuestionRepository;
     private FakeJoinRepository fakeJoinRepository;
     private FakeUserRepository fakeUserRepository;
+    private FakeParticipantRepository fakeParticipantRepository;
+
 
     private JoinAppointmentRequestDto joinAppointmentRequestDto;
     private List<AnswerRequestDto> answerRequestDto;
@@ -45,6 +48,7 @@ class JoinServiceTest {
     private static Location location;
     private static DateInfo dateInfo;
     private static CreateAppointmentRequestDto dto;
+    private static AgeRange ageRange;
     private static User user;
     private static List<CreateQuestionRequestDto> questionRequests;
     private static Appointment appointment;
@@ -56,7 +60,7 @@ class JoinServiceTest {
         fakeUserRepository = new FakeUserRepository();
         fakeJoinRepository = new FakeJoinRepository();
         userService = new UserService(fakeUserRepository);
-        appointmentService = new AppointmentService(fakeAppointmentRepository, fakeQuestionRepository, userService);
+        appointmentService = new AppointmentService(fakeAppointmentRepository, fakeQuestionRepository, fakeParticipantRepository, userService);
         joinService = new JoinService(userService, appointmentService, fakeQuestionRepository, fakeJoinRepository, fakeAppointmentRepository);
 
         user = new User(1L, 30, "test");
@@ -67,7 +71,9 @@ class JoinServiceTest {
         location = new Location("서울시 강남구", "강남야구장", null);
         dateInfo = new DateInfo(LocalDate.now(), LocalTime.now(), LocalTime.now().plusHours(1));
         questionRequests = getQuestions(3);
-        dto = new CreateAppointmentRequestDto(title, user.getId(), description, sport, location, dateInfo, 10, questionRequests);
+        ageRange = AgeRange.unrestricted();
+
+        dto = new CreateAppointmentRequestDto(title, user.getId(), description, sport, location, dateInfo, ageRange, 10, questionRequests);
 
         appointment = appointmentService.createAppointment(dto);
 
