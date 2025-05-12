@@ -6,6 +6,7 @@ import com.f3.exercise_mate.user.repository.JpaUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+@Service
 @RequiredArgsConstructor
 public class UserService {
 
@@ -18,5 +19,9 @@ public class UserService {
 
     public User getUser(Long id) {
         return userRepository.findById(id);
+    }
+
+    public User create(User user) {
+        return userRepository.save(user);
     }
 }

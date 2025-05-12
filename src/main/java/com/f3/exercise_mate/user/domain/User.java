@@ -1,10 +1,12 @@
 package com.f3.exercise_mate.user.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@EqualsAndHashCode
 public class User {
     private Long id;
     private int age;
