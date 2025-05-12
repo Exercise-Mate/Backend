@@ -3,6 +3,7 @@ package com.f3.exercise_mate.appointment.domain;
 import com.f3.exercise_mate.common.exception.ErrorCode;
 import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,17 +12,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class AgeRange {
-    private Integer minAge;
-    private Integer maxAge;
+    private Integer min;
+    private Integer max;
 
+    @Transient
     private final int MIN_AGE = 0;
+
+    @Transient
     private final int MAX_AGE = 100;
 
 
-    public AgeRange(Integer minAge, Integer maxAge) {
-        checkAge(minAge, maxAge);
-        this.minAge = minAge == null ? MIN_AGE : minAge;
-        this.maxAge = maxAge == null ? MAX_AGE : maxAge;
+    public AgeRange(Integer min, Integer max) {
+        checkAge(min, max);
+        this.min = min == null ? MIN_AGE : min;
+        this.max = max == null ? MAX_AGE : max;
     }
 
     /*
@@ -47,8 +51,8 @@ public class AgeRange {
         }
     }
 
-    public boolean isAvaliableAge(Integer age) {
-        if(minAge == null && maxAge == null) {
+    public boolean isAvailableAge(Integer age) {
+        if(min == null && max == null) {
             return true;
         }
 
@@ -56,7 +60,7 @@ public class AgeRange {
             throw new ExerciseMateException(ErrorCode.AGE_RANGE_AGE_REQUIRED);
         }
 
-        return age >= minAge && age <= maxAge;
+        return age >= min && age <= max;
     }
 
 }
