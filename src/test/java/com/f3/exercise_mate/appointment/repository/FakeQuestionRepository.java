@@ -44,4 +44,9 @@ public class FakeQuestionRepository implements QuestionRepository {
                 .filter(q -> q.getAppointment().getId().equals(appointmentId))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void delete(Question question) {
+
+    }
 }

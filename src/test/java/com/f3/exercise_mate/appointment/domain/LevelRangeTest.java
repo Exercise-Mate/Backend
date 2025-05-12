@@ -1,5 +1,6 @@
 package com.f3.exercise_mate.appointment.domain;
 
+import com.f3.exercise_mate.common.entity.SportAbility;
 import com.f3.exercise_mate.common.exception.ExerciseMateException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,8 +13,8 @@ class LevelRangeTest {
     @DisplayName("최소, 최대 레벨을 올바르게 설정할 시 생성이 성공한다.")
     void createLevelRange_success() {
         // given
-        Level min = Level.BEGINNER;
-        Level max = Level.BEGINNER;
+        SportAbility min = SportAbility.BEGINNER;
+        SportAbility max = SportAbility.BEGINNER;
         LevelRange levelRange = new LevelRange(min, max);
 
         // when, then
@@ -25,7 +26,7 @@ class LevelRangeTest {
     @DisplayName("최소 최대 레벨이 같은 경우 정상 생성")
     void createLevelRange_success2() {
         // given
-        Level min = Level.BEGINNER;
+        SportAbility min = SportAbility.BEGINNER;
 
         // when
         LevelRange levelRange = new LevelRange(min, min);
@@ -39,8 +40,8 @@ class LevelRangeTest {
     @DisplayName("최소 레벨의 입력이 최대 레벨보다 높다면 에러 발생")
     void createLevelRange_fail() {
         // given
-        Level min = Level.NOVICE;
-        Level max = Level.BEGINNER;
+        SportAbility min = SportAbility.INTERMEDIATE;
+        SportAbility max = SportAbility.BEGINNER;
 
         // when, then
         assertThrows(ExerciseMateException.class, () -> new LevelRange(min, max));

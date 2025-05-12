@@ -7,6 +7,7 @@ import com.f3.exercise_mate.appointment.application.dto.question.AnswerRequestDt
 import com.f3.exercise_mate.appointment.application.dto.question.CreateQuestionRequestDto;
 import com.f3.exercise_mate.appointment.domain.*;
 import com.f3.exercise_mate.appointment.repository.FakeAppointmentRepository;
+import com.f3.exercise_mate.appointment.repository.FakeParticipantRepository;
 import com.f3.exercise_mate.appointment.repository.FakeQuestionRepository;
 import com.f3.exercise_mate.user.domain.User;
 import com.f3.exercise_mate.user.repository.FakeUserRepository;
@@ -29,6 +30,7 @@ public class AppointmentServiceTest {
     private FakeQuestionRepository fakeQuestionRepository;
     private UserService userService;
     private FakeUserRepository fakeUserRepository;
+    private FakeParticipantRepository fakeParticipantRepository;
 
     private static String title;
     private static String description;
@@ -36,6 +38,7 @@ public class AppointmentServiceTest {
     private static Location location;
     private static DateInfo dateInfo;
     private static CreateAppointmentRequestDto dto;
+    private static AgeRange ageRange;
     private static User user;
     private static List<CreateQuestionRequestDto> questionRequests;
 
@@ -54,7 +57,8 @@ public class AppointmentServiceTest {
         fakeUserRepository = new FakeUserRepository();
         fakeQuestionRepository = new FakeQuestionRepository();
         userService = new UserService(fakeUserRepository);
-        appointmentService = new AppointmentService(fakeAppointmentRepository, fakeQuestionRepository, userService);
+        ageRange = AgeRange.unrestricted();
+        appointmentService = new AppointmentService(fakeAppointmentRepository, fakeQuestionRepository, fakeParticipantRepository, userService);
 
         user = new User(1L, 20, "test");
         fakeUserRepository.save(user);
@@ -64,7 +68,7 @@ public class AppointmentServiceTest {
         location = new Location("서울시 강남구", "강남야구장", null);
         dateInfo = new DateInfo(LocalDate.now(), LocalTime.now(), LocalTime.now().plusHours(1));
         questionRequests = getQuestions(3);
-        dto = new CreateAppointmentRequestDto(title, user.getId(), description, sport, location, dateInfo, 10, questionRequests);
+        dto = new CreateAppointmentRequestDto(title, user.getId(), description, sport, location, dateInfo, ageRange,10, questionRequests);
     }
 
     @Test
@@ -85,7 +89,7 @@ public class AppointmentServiceTest {
         Appointment appointment = appointmentService.createAppointment(dto);
         String updateTitle = "this is a update Title";
         String updateDescription = "this is a update Description";
-        UpdateAppointmentRequestDto updateDto = new UpdateAppointmentRequestDto(updateTitle, user.getId(), updateDescription, sport, location, dateInfo, null);
+        UpdateAppointmentRequestDto updateDto = new UpdateAppointmentRequestDto(updateTitle, user.getId(), updateDescription, sport, location, dateInfo);
 
         // when
         Appointment updateAppointment = appointmentService.updateAppointment(appointment.getId(), updateDto);
@@ -106,7 +110,7 @@ public class AppointmentServiceTest {
                 new CreateQuestionRequestDto("third Question")
         );
 
-        dto = new CreateAppointmentRequestDto(title, user.getId(), description, sport, location, dateInfo, 10, dtos);
+        dto = new CreateAppointmentRequestDto(title, user.getId(), description, sport, location, dateInfo, ageRange,10, dtos);
 
         // when
         Appointment saveAppointment = appointmentService.createAppointment(dto);
@@ -121,6 +125,7 @@ public class AppointmentServiceTest {
         assertEquals("third Question", questions.get(2).getContent());
     }
 
+    // TODO : 약속 참여에 대한 내용이 Join 객체가 담당하고 있으므로 지워질 테스트일 수도 있음.
     @Test
     @DisplayName("약속 참가신청시 정상 참여")
     void joinAppointment_success() {
@@ -138,6 +143,4 @@ public class AppointmentServiceTest {
         // when
         appointmentService.joinAppointment(requestDto);
     }
-
-
 }
